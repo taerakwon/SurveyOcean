@@ -1,0 +1,37 @@
+{
+  "name": "surveyocean",
+  "description": "Survey Ocean Final Project",
+  "main": "server.js",
+  "authors": [
+    "Taera Kwon",
+    "Dominic Lau",
+    "Ali Saim"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Survey",
+    "Web",
+    "Application",
+    "Survey",
+    "Ocean",
+    "MEAN",
+    "COMP308",
+    "W2017",
+    "Final",
+    "Project"
+  ],
+  "homepage": "https://github.com/taerakwon/SurveyOcean",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/Scripts/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.2.4",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  }
+}

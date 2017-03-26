@@ -18,7 +18,7 @@
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.2"
   },
-  "description": "**Team Members**\r - Taera Kwon\r - Dominic Lau\r - Ali Saim",
+  "description": "Survey Ocean Final Project",
   "main": "server.js",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "Final",
     "Project"
   ],
-  "author": "Taera Kwon (300755802)",
+  "author": "Taera Kwon, Dominic Lau, Ali Saim",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/taerakwon/SurveyOcean/issues"
