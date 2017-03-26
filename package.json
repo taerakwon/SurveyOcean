@@ -1,0 +1,45 @@
+{
+  "name": "surveyocean",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": ">=3.5.0"
+  },
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "ejs": "~2.5.5",
+    "express": "~4.14.1",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.2"
+  },
+  "description": "**Team Members**\r - Taera Kwon\r - Dominic Lau\r - Ali Saim",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taerakwon/SurveyOcean.git"
+  },
+  "keywords": [
+    "Survey",
+    "Web",
+    "Application",
+    "Survey",
+    "Ocean",
+    "MEAN",
+    "COMP308",
+    "W2017",
+    "Final",
+    "Project"
+  ],
+  "author": "Taera Kwon (300755802)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taerakwon/SurveyOcean/issues"
+  },
+  "homepage": "https://github.com/taerakwon/SurveyOcean#readme"
+}
