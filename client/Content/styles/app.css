@@ -1,0 +1,18 @@
+body {
+  padding-top: 100px;
+  padding-left: 50px;
+  padding-right: 50px;
+  font: 14px "Ubuntu", sans-serif;
+  color: #FFFFFF;
+  background-color: #0066cc;
+}
+
+nav {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 20px;
+}
+
+nav .container .navbar-header {
+  padding-right: 50px;
+}

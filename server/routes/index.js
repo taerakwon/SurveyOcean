@@ -7,7 +7,7 @@ let firebaseConfig = require('../config/firebase');
 
 /* GET home page. */
 router.get('/', (req, res, next) =>{
-  res.render('index', { title: 'Survey Ocean' });
+  res.render('content/index', { title: 'Survey Ocean' });
 });
 
 // Initialize the Firebase SDK
