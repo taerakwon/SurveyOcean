@@ -5,6 +5,17 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
+/* MONGO DB */
+let mongooseConfig = require("./config/mongo")
+let mongoose = require("mongoose");
+mongoose.connect(mongooseConfig.URI, (err) => {
+  if (err){
+    console.log("Error connecting to the Mongo Database");
+  } else {
+    console.log("Connected to MongoDB");
+  }
+});
+
 let index = require('./routes/index');
 
 let app = express();
