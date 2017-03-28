@@ -3,16 +3,37 @@ body {
   padding-left: 50px;
   padding-right: 50px;
   font: 14px "Ubuntu", sans-serif;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: #0066cc;
 }
 
+/* Nav */
 nav {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: 20px;
+  padding-top: 25px;
+  padding-bottom: 15px;
+  min-width: 280px;
 }
 
+/* Nav container that contains toggle and brand */
 nav .container .navbar-header {
-  padding-right: 50px;
+  padding-left: 50px;
+  padding-right: 30px;
+}
+
+nav .container .navbar-header .navbar-toggle {
+  margin-right: 5px;
+}
+
+.navbar .nav > li > a {
+  background:transparent;
+  color: #000000;
+  padding-top: 15px;
+  padding-left: 30px;  
+  padding-right: 30px;
+  font: 16px "Ubuntu", sans-serif;
+}
+
+.navbar .nav > li > a:hover {
+  background:#f2f2f2;
+  color: #000000;
 }
