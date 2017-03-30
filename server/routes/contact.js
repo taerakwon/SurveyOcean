@@ -10,7 +10,10 @@ let router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res, next) =>{
-  res.render('content/contact', { title: 'Survey Ocean' });
+  res.render('content/contact', { 
+    page: 'contact',
+    title: 'Survey Ocean' 
+  });
 });
 
 module.exports = router;

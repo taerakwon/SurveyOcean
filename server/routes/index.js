@@ -27,6 +27,7 @@ function requireAuth(req, res, next) {
 router.get('/', (req, res, next) =>{
   res.render('content/index', { 
     title: 'Survey Ocean',
+    page: 'main',
     // if req.user not null, displayName or ''
     displayName: req.user ? req.user.displayName : '' 
   });
@@ -39,6 +40,7 @@ router.get('/login', (req, res, next)=>{
     // render the login page
     res.render('auth/login', {
       title: "Login",
+      page: "login",
       messages: req.flash('loginMessage'),
       displayName: req.user ? req.user.displayName : ''
     });
