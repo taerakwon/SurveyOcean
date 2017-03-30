@@ -57,11 +57,41 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
 /*
+** Setup session
+*/
+app.use(session({
+  secret: "OceanSurveyRegistrationSecret",
+  saveUninitialized: true,
+  resave: true
+}));
+
+/* Initializing passport */
+app.use(passport.initialize());
+app.use(passport.session());
+/* Initializing flash */
+app.use(flash()); 
+
+/*
 ** Routing
 */
 app.use('/', index);
 app.use('/about', index);
 app.use('/contact', index);
+
+/*
+** Passport User Configuration
+*/
+
+let UserModel = require('./models/users');
+let User = UserModel.User; 
+passport.use(User.createStrategy());
+// Store User object in the session
+passport.serializeUser(User.serializeUser());
+// Matches key
+passport.deserializeUser(User.deserializeUser());
+
+
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

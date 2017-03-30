@@ -1,3 +1,10 @@
+/*
+  File name: contact.js
+  Group Number: Group 6
+  Web App name: Survey Ocean
+  Description: Responsible for routing contact page
+*/
+
 let express = require('express');
 let router = express.Router();
 
