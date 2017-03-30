@@ -6,5 +6,5 @@
 */
 
 module.exports = {
-    "URI": "mongodb://soadmin:soadminPass1234@ds058739.mlab.com:58739/surveyocean"
+    "URI":"mongodb://localhost/surveyocean"
 }

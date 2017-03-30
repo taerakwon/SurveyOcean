@@ -11,13 +11,18 @@
   },
   "dependencies": {
     "body-parser": "~1.16.0",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "ejs": "~2.5.5",
     "express": "~4.14.1",
+    "express-session": "^1.15.2",
     "firebase": "^3.7.3",
     "mongoose": "^4.9.2",
     "morgan": "~1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
     "serve-favicon": "~2.3.2"
   },
   "description": "Survey Ocean Final Project",
@@ -43,5 +48,12 @@
   "bugs": {
     "url": "https://github.com/taerakwon/SurveyOcean/issues"
   },
-  "homepage": "https://github.com/taerakwon/SurveyOcean#readme"
+  "homepage": "https://github.com/taerakwon/SurveyOcean#readme",
+  "devDependencies": {
+    "@types/connect-flash": "0.0.31",
+    "@types/express-session": "0.0.32",
+    "@types/passport": "^0.3.3",
+    "@types/passport-local": "^1.0.29",
+    "@types/passport-local-mongoose": "^4.0.8"
+  }
 }
