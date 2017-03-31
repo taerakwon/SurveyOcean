@@ -5,4 +5,44 @@
   Description: Register user page
 -->
 <% include ../partials/header.ejs %>
+    <div style="background:transparent !important" class="jumbotron col-md-offset-4 col-md-4 text-center">
+      <h2>REGISTER</h2>
+    </div>
+    <div class="container">
+      <% if (messages.length > 0) { %>
+        <div class="alert alert-danger"><%= messages %></div>
+      <% } %>
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <div class="jumbotron" id="userJumbotron">
+            <form method="post">
+              <fieldset class="form-group">
+                <label for="username">Username:</label>
+                <input name="username" type="text" class="form-control" required />
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="email">E-mail:</label>
+                <input name="email" type="email" class="form-control" required autofocus />
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="firstname">First Name:</label>
+                <input name="firstname" type="text" class="form-control" required />
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="lastname">Last Name:</label>
+                <input name="lastname" type="text" class="form-control" required />
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="password">Password:</label>
+                <input name="password" type="password" class="form-control" required />
+              </fieldset>
+              <fieldset class="form-group text-right">
+                <input type="submit" class="btn btn-success" value="Submit"/>
+                <a href="/"><input type="button" class="btn btn-warning" value="Cancel"/></a>
+              </fieldset>
+            </form>
+          </div> <!-- .jumbotron -->
+        </div> <!-- body .container.row.col-md-offset-3 col-md-6 -->
+      </div>
+    </div> <!-- body .container -->        
 <% include ../partials/footer.ejs %>

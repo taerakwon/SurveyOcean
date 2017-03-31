@@ -21,15 +21,15 @@ let UserSchema = new Schema({
     type: String,
     default: '',
     trim: true,
-    required: 'Email is required'
+    required: 'E-mail is required'
   },
-  firstName: {
+  firstname: {
     type: String,
     default: '',
     trim: true,
     required: 'First name is required'
   },
-  lastName: {
+  lastname: {
     type: String,
     default: '',
     trim: true,
