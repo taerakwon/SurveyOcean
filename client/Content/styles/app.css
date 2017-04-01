@@ -19,11 +19,6 @@ nav.navbar-fixed-top{
 nav .container .navbar-header {
   padding-left: 50px;
   padding-right: 30px;
-  min-width: 10%;
-}
-
-nav .container .navbar-header .navbar-toggle {
-  margin-right: 5px;
 }
 
 .navbar .nav > li > a {

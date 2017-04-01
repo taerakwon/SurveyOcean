@@ -32,13 +32,13 @@
           </a>
         </div> <!-- navbar-header -->
         <!-- NAV LINKS gets collapsed when browser shrinks  -->
-        <div class="collapse navbar-collapse">
+        <div class="navbar-collapse">
           <ul class="nav nav-pills">
               <li role="presentation"><a href="/about">About</a></li>
               <li role="presentation"><a href="/survey">Survey</a></li>
               <li role="presentation"><a href="/contact">Contact</a></li>
             <% if(typeof fullname == 'string' && fullname) { %>                    
-              <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <%= fullname %><i class="caret"></i></a>
+              <li class="dropdown navbar-right"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome, <%= fullname %><i class="caret"></i></a>
                 <ul class="dropdown-menu">
                 <li><a href="/preferences"><i class="icon-cog"></i> Preferences</a></li>
                 <li class="divider"></li>
@@ -46,7 +46,7 @@
                 </ul>
               </li>
             <% } else { %>
-              <li role="presentation"><a href="/login">Login</a></li>
+              <li role="presentation" class="navbar-right"><a href="/login">Login</a></li>
             <% } %>
           </ul>     
         </div> <!-- .navbar-collapse -->
