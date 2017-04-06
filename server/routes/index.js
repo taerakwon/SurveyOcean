@@ -24,11 +24,21 @@ function requireAuth(req, res, next) {
 }
 
 /* GET home page. */
-router.get('/', (req, res, next) =>{
-  res.render('content/index', { 
+router.get('/', (req, res, next) => {
+  res.render('content/index', {
     title: 'Survey Ocean',
     page: 'main',
     // if req.user not null, fullname or ''
+    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : ''
+  });
+});
+
+/* GET about page */
+router.get('/about', (req,res,next) => {
+  res.render('content/about',{
+    title:'About Us',
+    page:'about',
+        // if req.user not null, fullname or ''
     fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
   });
 });
