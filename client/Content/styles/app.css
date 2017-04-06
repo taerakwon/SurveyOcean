@@ -45,3 +45,16 @@ nav .container .navbar-header {
   width: 100%;
   margin-top: -5%;
 }
+
+/* ETC */
+#surveyBadge {
+  background-color:#0066cc;
+}
+
+.breadcrumb{
+  background-color: transparent;
+}
+
+.breadcrumb a{
+  color: white;
+}
