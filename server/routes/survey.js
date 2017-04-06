@@ -11,7 +11,8 @@ let router = express.Router();
 router.get('/', (req, res, next) =>{
   res.render('surveys/index', { 
     page: 'survey',
-    title: 'Survey - Survey Ocean' 
+    title: 'Survey - Survey Ocean',
+    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
   });
 });
 
