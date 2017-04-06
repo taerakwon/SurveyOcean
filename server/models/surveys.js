@@ -65,6 +65,12 @@ let tfqSurveySchema = new Schema({
 );
 
 let mcqSurveySchema = new Schema({
+  title: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Please enter title'
+  },
   questions: [mcqSchema],
   surveyType: {
     type: String,
