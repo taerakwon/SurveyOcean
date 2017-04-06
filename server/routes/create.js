@@ -11,10 +11,8 @@ let mongoose = require('mongoose');
 // module required for authentication
 let passport = require('passport');
 // Defining the user model
-let MCQModel = require('../models/mcqsurveys');
-let TFQModel = require('../models/tfqsurveys');
-let mcqSurvey = MCQModel.MCQSurvey;
-let tfqSurvey = TFQModel.TFQSurvey; 
+let SurveyModel = require('../models/surveys');
+
 
 // create a function to check if the user is authenticated
 function requireAuth(req, res, next) {
@@ -26,9 +24,29 @@ function requireAuth(req, res, next) {
 }
 
 /* ADD NEW SURVEY */
-router.post('/add', (req, res, next) =>{
-  mcqSurvey.create({
+router.get('/add', requireAuth, (req, res, next) =>{
+  let tfq = new SurveyModel.TFQ({
+    question: "This is a sample question",
+    true: 0,
+    false: 0
+  });
+
+  let tfqs = new SurveyModel.TFQS({
+    questions: [tfq],
+    createdBy: req.user._id,
+    surveyType: "tfq",
+    expire: 'July 22, 2017 14:00:00'
   })
+
+  tfqs.save(tfqs, (err, tfqs) => {
+    if (err){
+      console.log(err);
+      res.end(err);}
+      else{
+        res.redirect('/');
+      }
+    }
+  );
 });
 
 module.exports = router;
