@@ -35,8 +35,7 @@ let UserSchema = new Schema({
     trim: true,
     required: 'Last name is required'
   },
-  created: {type: Date, default: Date.now
-  },
+  created: {type: Date, default: Date.now},
   updated: {type: Date, default: Date.now}
 },{
   collection: "users"
