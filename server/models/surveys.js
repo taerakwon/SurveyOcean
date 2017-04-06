@@ -8,7 +8,40 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-// Option schema
+// True and false type schema
+let tfqSchema = new Schema({
+  question: {
+    type: String,
+    required: 'You need to enter a question',
+    trim: true
+  },
+  true: {
+    type: Number,
+    default: 0
+  },
+  false: {
+    type: Number,
+    default: 0
+  }
+});
+
+// create a model class for tfq
+let tfqSurveySchema = new Schema({
+  questions: [tfqSchema],
+  surveyType: {
+    type: String,
+    default: 'tfq'
+  },
+  createdBy: Schema.ObjectId,
+  created: {type:Date, default: Date.now},
+  expire:{type:Date}
+  },
+  {
+    collection: "surveys"
+  }
+);
+
+// Option schema for multiple choice
 let optionSchema = new Schema({
   option: {
     type: String,
@@ -31,7 +64,6 @@ let mcqSchema = new Schema({
   options: [optionSchema]
 })
 
-
 let mcqSurveySchema = new Schema({
   title: {
     type: String,
@@ -53,5 +85,17 @@ let mcqSurveySchema = new Schema({
   }
 );
 
+let MC = mongoose.model('MC', optionSchema);
+let MCQ = mongoose.model('MCQ', mcqSchema);
+let TFQ = mongoose.model('TFQ', tfqSchema);
+let MCQS = mongoose.model('MCQS', mcqSurveySchema);
+let TFQS = mongoose.model('TFQS', tfqSurveySchema);
+
 // Export the module
-module.exports = mongoose.model('MCQSurvey', mcqSurveySchema);
+module.exports = {
+  MC: MC,
+  MCQ: MCQ,
+  TFQ: TFQ,
+  MCQS: MCQS,
+  TFQS: TFQS
+}
