@@ -43,6 +43,19 @@ router.get('/about', (req,res,next) => {
   });
 });
 
+
+/* GET contact page */
+router.get('/contact', (req,res,next) => {
+  res.render('content/contact',{
+    title:'Contact Page',
+    page:'contact',
+        // if req.user not null, fullname or ''
+    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
+  });
+});
+
+
+
 // GET login page
 router.get('/login', (req, res, next)=>{
   // check to see if the user is not already logged in
