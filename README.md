@@ -8,5 +8,5 @@
   
 **Progression**
 - [x] Part 1: Project Concept & Site Security 
-- [ ] Part 2: Main Functionality & DB
+- [x] Part 2: Main Functionality & DB
 - [ ] Part 3: Final Version (Documentation, Presentation)
