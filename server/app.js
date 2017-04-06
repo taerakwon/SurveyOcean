@@ -39,6 +39,7 @@ let index = require('./routes/index');
 let about = require('./routes/about');
 let contact = require('./routes/contact');
 let survey = require('./routes/survey');
+let create = require('./routes/create');
 
 let app = express();
 
@@ -79,7 +80,7 @@ app.use('/', index);
 app.use('/about', index);
 app.use('/contact', index);
 app.use('/survey', survey);
-
+app.use('/create', create);
 /*
 ** Passport User Configuration
 */
