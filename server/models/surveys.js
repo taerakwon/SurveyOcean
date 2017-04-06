@@ -8,34 +8,76 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-// create a model class
-let SurveySchema = new Schema({  
-    title: {
-      type: String,
-      default: '',
-      trim: true,
-      required: 'Title is required'
-    },
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }, 
-    counter: {
-      type: Number,
-      default: 0
-    },
-    questions: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Types'
-    },
-    updated: {type:Date, default: Date.now},
-    expire: {
-      type:Date,
-      expires: 60*60*24*7
-    }
-},
-{
-  collection: "surveys"
+// True and false type schema
+let tfqSchema = new Schema({
+  question: {
+    type: String,
+    required: 'You need to enter a question',
+    trim: true
+  },
+  true: {
+    type: Number,
+    default: 0
+  },
+  false: {
+    type: Number,
+    default: 0
+  }
 });
 
+// Multiple choice schema
+let mcqSchema = new Schema({
+  question: {
+    type: String,
+    required: 'You need to enter a question',
+    trim: true
+  },
+  options: [optionSchema]
+})
+
+// Option schema
+let optionSchema = new Schema({
+  option: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  counter: {
+    type: Number,
+    default: 0
+  }
+})
+
+// create a model class for tfq
+let tfqSurveySchema = new Schema({
+  questions: [tfqSchema],
+  surveyType: {
+    type: String,
+    default: 'tfq'
+  },
+  createdBy: mongoose.Schema.Types.ObjectId,
+  created: {type:Date, default: Date.now},
+  expire:{type:Date}
+  },
+  {
+    collection: "surveys"
+  }
+);
+
+let mcqSurveySchema = new Schema({
+  questions: [mcqSchema],
+  surveyType: {
+    type: String,
+    default: 'mcq'
+  },
+  createdBy: mongoose.Schema.Types.ObjectId,
+  created: {type:Date, default: Date.now},
+  expire:{type:Date}
+  },
+  {
+    collection: "surveys"
+  }
+);
+
+// Export the module
 module.exports = mongoose.model('Survey', SurveySchema);

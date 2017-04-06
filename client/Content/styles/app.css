@@ -38,3 +38,10 @@ nav .container .navbar-header {
   border: 2px solid black;
   color: black;
 }
+
+/* SURVEYS */
+#surveyJumbotron{
+  border: 5px solid #ffffff;
+  width: 100%;
+  margin-top: -5%;
+}
