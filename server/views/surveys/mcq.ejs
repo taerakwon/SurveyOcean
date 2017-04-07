@@ -13,11 +13,53 @@
     <div style="background:transparent !important" class="jumbotron col-md-offset-2 col-md-8">
       <h3>&nbsp;&nbsp;&nbsp; <i class="fa fa-archive"></i> New Survey</h3>
     </div>
+    
     <div class="container">
+      <form class="form-horizontal">
+        
+        <div class="form-group">
+          <label for="inputQuestion1" class="control-label col-md-2">Question 1: </label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="inputQuestion1" name="inputQuestion1" value="" required>
+              
+              <div class="col-md-12">
+                <label for="inputChoice1" class="control-label col-md-1">a: </label>
+                    <div class="col-md-2">
+                      <input type="text" class="form-control" id="inputChoice1">
+                    </div>
+                    <label for="inputChoice2" class="control-label col-md-1">b: </label>
+                    <div class="col-md-2">
+                      <input type="text" class="form-control" id="inputChoice2">
+                    </div>
+                    <label for="inputChoice3" class="control-label col-md-1">c: </label>
+                    <div class="col-md-2">
+                      <input type="text" class="form-control" id="inputChoice3">
+                    </div>
+                    <label for="inputChoice4" class="control-label col-md-1">d: </label>
+                    <div class="col-md-2">
+                      <input type="text" class="form-control" id="inputChoice4">
+                    </div>
+              </div>
+
+            </div>
+        
+        </div> <!-- form group for question 1 -->
+        
+        <div id="question_fields"></div>
+        <div id="time">
+            <label for="expiryDate" class="col-md-2">Expiry Date: </label>
+            <input type="text" class="col-md-10" id="inputDate" name="inputDate" value="" required>
+        </div>
+
+      </form>
+      
       <div class="row">
-        <div class="col-md-offset-3 col-md-6 text-center">
-        Multiple
-        </div> 
-      </div> <!-- body .container.row.col-md-offset-3 col-md-6 -->
+        <div class="col-md-2"> 
+          <button type="button" class="btn btn-primary" onclick="addNewQ_fields();"> Add new question </button>
+        </div>   <!-- col-md-2 -->
+        <div class="col-md-2"> 
+          <button type="button" class="btn btn-success"> Submit survey </button>
+        </div>   <!-- col-md-2 -->
+      </div>
     </div> <!-- body .container -->
 <% include ../partials/footer.ejs %>

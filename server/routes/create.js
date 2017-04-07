@@ -49,4 +49,11 @@ router.get('/add', requireAuth, (req, res, next) =>{
   );
 });
 
+/* ADD NEW SURVEY - MCQ */
+router.post('/mcq',(req,res,next) => {
+  let newQuestion = question({
+    "inputQuestion1": req.body.inputQuestion1
+  });
+});
+
 module.exports = router;
