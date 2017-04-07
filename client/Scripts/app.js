@@ -1,13 +1,12 @@
 var question = 1;
 function addNewQ_fields(){
     question++;
-    var objTo = document.getElementById('question_fields')
+    var objTo = document.getElementById('question_fields');
     var divElement = document.createElement("div");
-    divElement.setAttribute("class","form-group removeclass"+ question);
-    var rdiv= 'removeclass' + question;
+    divElement.setAttribute("class","form-group "+ question);
     
     if(question <=10)
-    {
+    {    
     divElement.innerHTML='<label for="inputQuestion1" class="control-label col-md-2">Question '+ question +': </label>' +
             '<div class="col-md-10">' +
               '<input type="text" class="form-control" id="inputQuestion'+question+'">' +
@@ -24,12 +23,18 @@ function addNewQ_fields(){
                       '<input type="text" class="form-control" id="inputChoice3"></div>' +
                     '<label for="inputChoice4" class="control-label col-md-1">d: </label>' +
                     '<div class="col-md-2">' +
-                      '<input type="text" class="form-control" id="inputChoice4">' +
-                    '</div></div></div></div>';
+                      '<input type="text" class="form-control" id="inputChoice4"></div>' +
+                      '<button type="button" class="btn btn-danger remove" onclick="delQ_field();"><span class="glyphicon glyphicon-minus"></span></button></div></div></div>';
 
     objTo.appendChild(divElement)
     } else {
         window.alert("only 10 questions max!");
     }
+    console.log(question);
+}
+
+function delQ_field(){
+    $("div").remove(".form-group." + question);
+    question--;
     console.log(question);
 }
