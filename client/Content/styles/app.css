@@ -60,7 +60,14 @@ nav .container .navbar-header {
 }
 
 img {
+  display: block;
   margin-top: -5%;
   width: 100%;
-  min-height: 75px;
+  height: 80%;;
+}
+
+img.steps {
+  display: inline-block;
+  width: 20%;
+  padding-right: 40px;
 }
