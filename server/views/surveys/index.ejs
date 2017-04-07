@@ -12,8 +12,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="jumbotron" id="surveyJumbotron">
-            <h4><span style="color:#000000;">Question types</span></h4>
+          <div class="jumbotron" id="surveyJumbotron">          
+            <h4><span style="color:#000000;">Question types<br>
+            <%= tfquestions.length %></span></h4>            
             <button class="btn-default" data-toggle="collapse" data-target="#multipleList">Multiple Choice &nbsp;
             <span class="badge" id="surveyBadge">
             12
@@ -22,12 +23,12 @@
             <span class="badge" id="surveyBadge">
             8
             </span></button>
-            <ul id="multipleList" class="collapse">
-              <li class="list-group-item">New <span class="badge">12</span></li>
+            <ul id="multipleList" class="list-group collapse">
+              <li class="list-group-item">add <span class="badge">5</span></li>
               <li class="list-group-item">Deleted <span class="badge">5</span></li> 
               <li class="list-group-item">Warnings <span class="badge">3</span></li> 
             </ul>
-            <ul id="tfList" class="collapse">
+            <ul id="tfList" class="list-group collapse">
               <li class="list-group-item">New <span class="badge">12</span></li>
               <li class="list-group-item">Deleted <span class="badge">5</span></li> 
               <li class="list-group-item">Warnings <span class="badge">3</span></li> 

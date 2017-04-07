@@ -46,6 +46,11 @@ nav .container .navbar-header {
   margin-top: -5%;
 }
 
+ul.list-group.collapse{
+  color: black;
+}
+
+
 /* ETC */
 #surveyBadge {
   background-color:#0066cc;

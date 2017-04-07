@@ -13,6 +13,12 @@ let passport = require('passport');
 // Defining the user model
 let UserModel = require('../models/users');
 let User = UserModel.User; // Alias for User Model - User object
+// Survey Model
+let SurveyModel = require('../models/surveys');
+let McqsModel = SurveyModel.MCQS;
+// True and False Question(s)
+let TfQuestions = SurveyModel.TFQS;
+let TfQuestion = SurveyModel.TFQ;
 
 // create a function to check if the user is authenticated
 function requireAuth(req, res, next) {
@@ -24,12 +30,26 @@ function requireAuth(req, res, next) {
 }
 
 /* GET home page. */
-router.get('/', (req, res, next) =>{
+router.get('/', (req, res, next) =>{  
+  let questions = [];
+  TfQuestions.find((err, model)=>{
+    if (err) {
+      return console.error(err);
+    } else {
+      for (let i = 0; i < model.length; i++){
+        questions.push(model[i].questions);        
+      }
+    }    
+  }  
+  );
+  questions.push("HAHA");
+
   res.render('surveys/index', { 
     page: 'survey',
     title: 'Survey - Survey Ocean',
-    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
-  });
+    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
+    tfquestions: questions
+  });  
 });
 
 /* Create new survey */
