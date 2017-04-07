@@ -10,6 +10,8 @@ let router = express.Router();
 let mongoose = require('mongoose');
 // module required for authentication
 let passport = require('passport');
+// Async
+let async = require('async');
 // Defining the user model
 let UserModel = require('../models/users');
 let User = UserModel.User; // Alias for User Model - User object
@@ -32,24 +34,26 @@ function requireAuth(req, res, next) {
 /* GET home page. */
 router.get('/', (req, res, next) =>{  
   let questions = [];
-  TfQuestions.find((err, model)=>{
-    if (err) {
-      return console.error(err);
-    } else {
-      for (let i = 0; i < model.length; i++){
-        questions.push(model[i].questions);        
-      }
-    }    
-  }  
-  );
-  questions.push("HAHA");
+  async.parallel({
+    one: function(callback){
+      TfQuestions.find((err, model)=>{
+        for (let i=0; i < model.length; i++){
+          questions.push(model[i].questions);
+          callback(null, questions);
+        }
+      });
+    }},
+    (err, results) => {
+      res.render('surveys/index', { 
+        page: 'survey',
+        title: 'Survey - Survey Ocean',
+        fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
+        tfquestions: questions
+      });  
+    }
+ );
 
-  res.render('surveys/index', { 
-    page: 'survey',
-    title: 'Survey - Survey Ocean',
-    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
-    tfquestions: questions
-  });  
+  
 });
 
 /* Create new survey */
