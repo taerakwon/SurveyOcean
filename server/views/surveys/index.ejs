@@ -22,7 +22,7 @@
             <button class="btn-default" data-toggle="collapse" data-target="#tfList">True and False
             <span class="badge" id="surveyBadge">
             <%= tfquestions.length %>
-            </span></button>
+            </span></button><br><br>
             <ul id="multipleList" class="list-group collapse">
               <li class="list-group-item">add <span class="badge">5</span></li>
               <li class="list-group-item">Deleted <span class="badge">5</span></li> 
@@ -30,7 +30,9 @@
             </ul>
             <ul id="tfList" class="list-group collapse">
               <% for (let i = 0; i < tfquestions.length; i++){ %>
-              <li class="list-group-item"><%=tfquestions[i][0].question%><span class="badge">Total response = <%=tfquestions[i][0].true + tfquestions[i][0].false%></span></li>
+              <li class="list-group-item justify-content-between">
+                <a href="surveyAnswer" class="btn btn-success" role="button" id="btnAnswerSurvey">Answer</a><span id="listTitle"><%=tfquestions[i].title%></span><span class="badge" id="listBadge">Total questions: <%=tfquestions[i].questions.length %>&nbsp <%=(tfquestions[i].expire).toDateString()%></span>
+                </li>
               <%}%>
             </ul>
           </div>

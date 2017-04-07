@@ -33,16 +33,15 @@ function requireAuth(req, res, next) {
 
 /* GET home page. */
 router.get('/', (req, res, next) =>{  
-  let questions = [];
-  let q;
-  let p
+  let tfqs = [];
   async.parallel({
     one: function(callback){
       TfQuestions.find((err, model)=>{
         for (let i=0; i < model.length; i++){
-          questions.push(model[i].questions);
+          tfqs.push(model[i]);
         }
-        callback(null, questions);
+        console.log(tfqs);
+        callback(null, tfqs);
       });
     }},
     (err, results) => {
@@ -50,7 +49,7 @@ router.get('/', (req, res, next) =>{
         page: 'survey',
         title: 'Survey - Survey Ocean',
         fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
-        tfquestions: questions
+        tfquestions: tfqs
       });  
     }
  );
