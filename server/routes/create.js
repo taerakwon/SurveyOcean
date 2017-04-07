@@ -49,11 +49,20 @@ router.get('/add', requireAuth, (req, res, next) =>{
   );
 });
 
-/* ADD NEW SURVEY - MCQ */
-router.post('/mcq',(req,res,next) => {
-  let newQuestion = question({
-    "inputQuestion1": req.body.inputQuestion1
+/* POST - ADD NEW SURVEY - MCQ */
+router.post('/mcq', requireAuth, (req, res, next) => {
+  let newMCQuestion = new SurveyModel.MCQ({
+    "question": req.body.inputQuestion1
+  });
+  SurveyModel.MCQ.create(newMCQuestion, (err, SurveyModel) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      res.redirect('/');
+    }
   });
 });
+
 
 module.exports = router;
