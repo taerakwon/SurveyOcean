@@ -1,4 +1,13 @@
+/*  
+  File name: index.ejs
+  Group Number: Group 6
+  Web App name: Survey Ocean
+  Description: Survey main page
+*/
+
+//global variable
 var question = 1;
+//function to add new question
 function addNewQ_fields(){
     question++;
     var objTo = document.getElementById('question_fields');
@@ -32,7 +41,7 @@ function addNewQ_fields(){
     }
     console.log(question);
 }
-
+//function to delete question
 function delQ_field(){
     $("div").remove(".form-group." + question);
     question--;
