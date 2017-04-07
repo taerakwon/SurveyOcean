@@ -31,7 +31,7 @@ function requireAuth(req, res, next) {
   next();
 }
 
-/* GET home page. */
+/* GET survey page. */
 router.get('/', (req, res, next) =>{  
   let tfqs = [];
   async.parallel({
@@ -52,9 +52,37 @@ router.get('/', (req, res, next) =>{
         tfquestions: tfqs
       });  
     }
- );
+ );  
+});
 
-  
+/* GET view survey page */
+router.get('/:id', (req, res, next) =>{
+  try {
+    let id = req.params.id;
+    // Find by ID
+    TfQuestions.findById(id, (err, question) => {
+      // If error
+      if (err) {
+        return console.error(err);
+      } else {
+        let questions = [];
+        for (let i = 0; i < question.questions.length; i++){
+          questions.push(question.questions[i]);
+        }
+        // If no error
+        res.render('surveys/answer/tfsurvey', {
+          page: 'tfsurvey',
+          title: 'Survey - Survey Ocean',
+          fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
+          tfquestion: question,
+          tfquestions: questions
+        });
+      }
+    })
+  } catch (err) {
+    // Log error
+    return console.error(err);
+  }
 });
 
 /* Create new survey */

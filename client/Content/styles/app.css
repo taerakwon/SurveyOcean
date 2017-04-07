@@ -60,6 +60,16 @@ ul.list-group.collapse{
   margin-left: 5%;
 }
 
+/* T/F View */
+#questionTitle{
+  color: #0066cc;
+}
+
+#tfchoice{
+  color: #000000;
+  font-size: 16pt;
+}
+
 
 /* ETC */
 #surveyBadge {
