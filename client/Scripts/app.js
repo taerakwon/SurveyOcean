@@ -1,8 +1,8 @@
 /*  
-  File name: index.ejs
+  File name: app.js
   Group Number: Group 6
   Web App name: Survey Ocean
-  Description: Survey main page
+  Description: Custom javascripts
 */
 
 //global variable
