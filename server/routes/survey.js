@@ -34,13 +34,15 @@ function requireAuth(req, res, next) {
 /* GET home page. */
 router.get('/', (req, res, next) =>{  
   let questions = [];
+  let q;
+  let p
   async.parallel({
     one: function(callback){
       TfQuestions.find((err, model)=>{
         for (let i=0; i < model.length; i++){
           questions.push(model[i].questions);
-          callback(null, questions);
         }
+        callback(null, questions);
       });
     }},
     (err, results) => {

@@ -26,7 +26,7 @@ function requireAuth(req, res, next) {
 /* ADD NEW SURVEY */
 router.get('/add', requireAuth, (req, res, next) =>{
   let tfq = new SurveyModel.TFQ({
-    question: "This is a sample question",
+    question: "Hey, I guess it's working",
     true: 0,
     false: 0
   });

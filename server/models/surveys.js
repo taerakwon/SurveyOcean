@@ -27,6 +27,12 @@ let tfqSchema = new Schema({
 
 // create a model class for tfq
 let tfqSurveySchema = new Schema({
+  title: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Please enter title'
+  },
   questions: [tfqSchema],
   surveyType: {
     type: String,
