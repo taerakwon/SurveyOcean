@@ -58,3 +58,16 @@ nav .container .navbar-header {
 .breadcrumb a{
   color: white;
 }
+
+img {
+  display: block;
+  margin-top: -5%;
+  width: 100%;
+  height: 80%;;
+}
+
+img.steps {
+  display: inline-block;
+  width: 20%;
+  padding-right: 40px;
+}
