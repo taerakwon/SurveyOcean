@@ -5,9 +5,12 @@ function addNewQ_fields(){
     var divElement = document.createElement("div");
     divElement.setAttribute("class","form-group removeclass"+ question);
     var rdiv= 'removeclass' + question;
+    
+    if(question <=10)
+    {
     divElement.innerHTML='<label for="inputQuestion1" class="control-label col-md-2">Question '+ question +': </label>' +
             '<div class="col-md-10">' +
-              '<input type="text" class="form-control" id="inputQuestion1">' +
+              '<input type="text" class="form-control" id="inputQuestion'+question+'">' +
               '<div class="col-md-12">' +
                 '<label for="inputChoice1" class="control-label col-md-1">a: </label>' +
                     '<div class="col-md-2">' +
@@ -25,5 +28,8 @@ function addNewQ_fields(){
                     '</div></div></div></div>';
 
     objTo.appendChild(divElement)
-    console.log("message shows after clicking add new question");
+    } else {
+        window.alert("only 10 questions max!");
+    }
+    console.log(question);
 }
