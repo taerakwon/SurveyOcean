@@ -10,6 +10,8 @@ let router = express.Router();
 let mongoose = require('mongoose');
 // module required for authentication
 let passport = require('passport');
+// module for get-Element
+let getElement = require('get-element')
 // Async
 let async = require('async');
 // Defining the user model
@@ -40,7 +42,6 @@ router.get('/', (req, res, next) =>{
         for (let i=0; i < model.length; i++){
           tfqs.push(model[i]);
         }
-        console.log(tfqs);
         callback(null, tfqs);
       });
     }},
@@ -85,6 +86,32 @@ router.get('/:id', (req, res, next) =>{
   }
 });
 
+/*Respond to survey answer*/
+router.post('/:id', (req, res, next) =>{
+  // Set local id as id from req
+  let surveyid = req.params.id;
+  let numQuestions; // Holds number of questions in the survey
+  let surveyQuestions; // Holds survey's question JSON object
+  // Finds the survey by id
+  TfQuestions.findById(surveyid, (err, question) => {
+    // If err
+    if (err) {
+      console.error(err);
+    } else {
+      // Number of question in this survey
+      numQuestions = question.questions.length;
+      // surveyQUestions stores JSON objects for questions
+      surveyQuestions = question.questions;
+        // For loop to iterate through all the questions
+      for (let i = 0; i < surveyQuestions.length; i++){
+        console.log(surveyQUestions[i]); // Trying to target element.. having challenges
+      }
+    }
+  });
+
+});
+
+
 /* Create new survey */
 router.get('/createNew', requireAuth, (req, res, next) =>{
   res.render('surveys/create', {
@@ -109,5 +136,6 @@ router.get('/tfq', requireAuth, (req, res, next) =>{
      fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
   });
 })
+
 
 module.exports = router;
