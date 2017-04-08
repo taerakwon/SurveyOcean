@@ -23,6 +23,11 @@ let McqsModel = SurveyModel.MCQS;
 let TfQuestions = SurveyModel.TFQS;
 let TfQuestion = SurveyModel.TFQ;
 
+//define model for MC questions
+let MCQSModel = require('../models/surveys').MCQS;
+let MCQModel = require('../models/surveys').MCQ;
+let MCModel = require('../models/surveys').MC;
+
 // create a function to check if the user is authenticated
 function requireAuth(req, res, next) {
   // check if the user is logged in
@@ -119,11 +124,40 @@ router.get('/createNew', requireAuth, (req, res, next) =>{
   });
 })
 
-/* Create new survey */
+/* Create new MC survey */
 router.get('/mcq', requireAuth, (req, res, next) =>{
+  let mcqty = 10;
+  let mccqty = 4;
+  let mcquestions = [];
+  let mcs = [];
+  for(let i=0;i<mcqty;i++){
+    mcquestions.push(new MCQModel);
+  }
+  for (let i=0;i<mccqty;i++){
+    mcs.push(new MCQSModel);
+  }
+  let mcquestion = new MCQSModel();
+  let mc = new MCQModel();  
+  mcquestion.questions = mcquestions;
+  mc.options= mcquestions;
+  
+  //testing purposes will delete when complete
+  console.log("page holder " + mcquestion._id);
+  console.log("each mc questions " + mcquestion.questions);
+  console.log("each mc options " + mc.options);
+  console.log("holder all " + mcquestion);  
+  console.log("getting first question id "+ mcquestions[0]._id);
+  console.log("mc option id " + mcs[0]._id);
+
+  console.log("print mc" + mc);
+  
+  //render view to surveys/mcq
   res.render('surveys/mcq', {
-     title: 'MCQ Survey - Survey Ocean',
-     fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
+    title:'MC Survey - Survey Ocean',
+    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
+    mcq: mcquestion,
+    mcqs: mcquestions,
+    mc: mc
   });
 })
 
