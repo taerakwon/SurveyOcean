@@ -10,6 +10,7 @@ let router = express.Router();
 let mongoose = require('mongoose');
 // module required for authentication
 let passport = require('passport');
+
 // Async
 let async = require('async');
 // Defining the user model
@@ -31,18 +32,16 @@ function requireAuth(req, res, next) {
   next();
 }
 
-/* GET home page. */
+/* GET survey page. */
 router.get('/', (req, res, next) =>{  
-  let questions = [];
-  let q;
-  let p
+  let tfqs = [];
   async.parallel({
     one: function(callback){
       TfQuestions.find((err, model)=>{
         for (let i=0; i < model.length; i++){
-          questions.push(model[i].questions);
+          tfqs.push(model[i]);
         }
-        callback(null, questions);
+        callback(null, tfqs);
       });
     }},
     (err, results) => {
@@ -50,13 +49,66 @@ router.get('/', (req, res, next) =>{
         page: 'survey',
         title: 'Survey - Survey Ocean',
         fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
-        tfquestions: questions
+        tfquestions: tfqs
       });  
     }
- );
-
-  
+ );  
 });
+
+/* GET view survey page */
+router.get('/:id', (req, res, next) =>{
+  try {
+    let id = req.params.id;
+    // Find by ID
+    TfQuestions.findById(id, (err, question) => {
+      // If error
+      if (err) {
+        return console.error(err);
+      } else {
+        let questions = [];
+        for (let i = 0; i < question.questions.length; i++){
+          questions.push(question.questions[i]);
+        }
+        // If no error
+        res.render('surveys/answer/tfsurvey', {
+          page: 'tfsurvey',
+          title: 'Survey - Survey Ocean',
+          fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
+          tfquestion: question,
+          tfquestions: questions
+        });
+      }
+    })
+  } catch (err) {
+    // Log error
+    return console.error(err);
+  }
+});
+
+/*Respond to survey answer*/
+router.post('/:id', (req, res, next) =>{
+  // Set local id as id from req
+  let surveyid = req.params.id;
+  let numQuestions; // Holds number of questions in the survey
+  let surveyQuestions; // Holds survey's question JSON object
+  // Finds the survey by id
+  TfQuestions.findById(surveyid, (err, question) => {
+    // If err
+    if (err) {
+      console.error(err);
+    } else {
+      // Number of question in this survey
+      numQuestions = question.questions.length;
+      // surveyQUestions stores JSON objects for questions
+      surveyQuestions = question.questions;
+        // For loop to iterate through all the questions
+      for (let i = 0; i < surveyQuestions.length; i++){
+        console.log(surveyQUestions[i]); // Trying to target element.. having challenges
+      }
+    }
+  });
+});
+
 
 /* Create new survey */
 router.get('/createNew', requireAuth, (req, res, next) =>{
@@ -82,5 +134,6 @@ router.get('/tfq', requireAuth, (req, res, next) =>{
      fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
   });
 })
+
 
 module.exports = router;

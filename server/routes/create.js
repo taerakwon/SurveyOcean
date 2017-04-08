@@ -32,6 +32,7 @@ router.get('/add', requireAuth, (req, res, next) =>{
   });
 
   let tfqs = new SurveyModel.TFQS({
+    title: "What do you think about Centennial?",
     questions: [tfq],
     createdBy: req.user._id,
     surveyType: "tfq",
