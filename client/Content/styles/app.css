@@ -54,6 +54,7 @@ ul.list-group.collapse{
   color: black;
 }
 
+
 #listTitle{
   font-size: 18pt;
   vertical-align: middle;
@@ -69,7 +70,6 @@ ul.list-group.collapse{
   color: #000000;
   font-size: 16pt;
 }
-
 
 /* ETC */
 #surveyBadge {

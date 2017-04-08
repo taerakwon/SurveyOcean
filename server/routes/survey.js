@@ -10,8 +10,7 @@ let router = express.Router();
 let mongoose = require('mongoose');
 // module required for authentication
 let passport = require('passport');
-// module for get-Element
-let getElement = require('get-element')
+
 // Async
 let async = require('async');
 // Defining the user model
@@ -108,7 +107,6 @@ router.post('/:id', (req, res, next) =>{
       }
     }
   });
-
 });
 
 
