@@ -33,7 +33,7 @@ function addNewQ_fields(){
                     '<label for="inputChoice4" class="control-label col-md-1">d: </label>' +
                     '<div class="col-md-2">' +
                       '<input type="text" class="form-control" id="inputChoice4"></div>' +
-                      '<button type="button" class="btn btn-danger remove" onclick="delQ_field();"><span class="glyphicon glyphicon-minus"></span></button></div></div></div>';
+                      '<button type="button" class="btn btn-danger remove" onclick="delQ_field();">Delete<span class="glyphicon glyphicon-minus"></span></button></div></div></div>';
 
     objTo.appendChild(divElement)
     } else {

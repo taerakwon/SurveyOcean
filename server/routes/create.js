@@ -13,6 +13,11 @@ let passport = require('passport');
 // Defining the user model
 let SurveyModel = require('../models/surveys');
 
+//define model for MC questions
+let MCQSModel = require('../models/surveys').MCQS;
+let MCQModel = require('../models/surveys').MCQ;
+let MCModel = require('../models/surveys').MC;
+
 
 // create a function to check if the user is authenticated
 function requireAuth(req, res, next) {
@@ -50,11 +55,37 @@ router.get('/add', requireAuth, (req, res, next) =>{
   );
 });
 
-/* ADD NEW SURVEY - MCQ */
-router.post('/mcq',(req,res,next) => {
-  let newQuestion = question({
-    "inputQuestion1": req.body.inputQuestion1
+/* POST - ADD NEW SURVEY - MCQ */
+router.post('/add', requireAuth, (req, res, next) => {
+  
+});
+
+/* GET - Create a new MC Survey */
+router.get('/',requireAuth,(req,res,next) => {
+  let mcqty = 10;
+  let mcquestions = [];
+  let mcs = [];
+  for(let i=0;i<mcqty;i++){
+    mcs.push(new MCQSModel)
+  }
+  for(let i=0;i<mcqty;i++){
+    mcquestions.push(new MCQModel);
+  }
+  let mcquestion = new MCQSModel();
+  
+  mcquestion.questions = mcquestions;
+  console.log("page holder" + mcquestion._id);
+  console.log("each mc questions" + mcquestion.questions);
+  
+  console.log("getting first question id "+ mcquestions[0]._id);
+
+  res.render('surveys/mcq', {
+    title:'MC Survey - Survey Ocean',
+    fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
+    mcq: mcquestion,
+    mcqs: mcquestions
   });
 });
+
 
 module.exports = router;
