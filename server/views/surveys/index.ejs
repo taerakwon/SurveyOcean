@@ -31,7 +31,7 @@
             <ul id="tfList" class="list-group collapse">
               <% for (let i = 0; i < tfquestions.length; i++){ %>
               <li class="list-group-item justify-content-between">
-                <a href="survey/<%= tfquestions[i]._id %>" class="btn btn-success" role="button" id="btnAnswerSurvey">Answer</a><span id="listTitle"><%=tfquestions[i].title%></span><span class="badge" id="listBadge">Total questions: <%=tfquestions[i].questions.length %>&nbsp <%=(tfquestions[i].expire).toDateString()%></span>
+                <a href="survey/view/<%= tfquestions[i]._id %>" class="btn btn-success" role="button" id="btnAnswerSurvey">Answer</a><span id="listTitle"><%=tfquestions[i].title%></span><span class="badge" id="listBadge">Total questions: <%=tfquestions[i].questions.length %>&nbsp <%=(tfquestions[i].expire).toDateString()%></span>
                 </li>
               <%}%>
             </ul>
