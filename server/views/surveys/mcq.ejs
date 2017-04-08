@@ -1,5 +1,5 @@
 <!-- 
-  File name: index.ejs
+  File name: mcq.ejs
   Group Number: Group 6
   Web App name: Survey Ocean
   Description: Survey main page
@@ -16,53 +16,46 @@
     
     <div class="container">
       <form class="form-horizontal" method="post">
+      <div class="form-group"> 
+        <label for="title" class="control-label col-md-2">Title: </label>
+        <div class="col-md-10">
+          <input type="text" class="form-control" id="<%= mcq %>" name="<%= mcq %>" placeholder="<%= mcq %>" required>
+        </div>
+      </div>
         
-        <div class="form-group">
-          <label for="inputQuestion1" class="control-label col-md-2">Question 1: </label>
-            <div class="col-md-10">
-              <input type="text" class="form-control" id="inputQuestion1" name="inputQuestion1">" required>
-              
-              <div class="col-md-12">
-                <label for="inputChoice1" class="control-label col-md-1">a: </label>
-                    <div class="col-md-2">
-                      <input type="text" class="form-control" id="inputChoice1">
-                    </div>
-                    <label for="inputChoice2" class="control-label col-md-1">b: </label>
-                    <div class="col-md-2">
-                      <input type="text" class="form-control" id="inputChoice2">
-                    </div>
-                    <label for="inputChoice3" class="control-label col-md-1">c: </label>
-                    <div class="col-md-2">
-                      <input type="text" class="form-control" id="inputChoice3">
-                    </div>
-                    <label for="inputChoice4" class="control-label col-md-1">d: </label>
-                    <div class="col-md-2">
-                      <input type="text" class="form-control" id="inputChoice4">
-                    </div>
-              </div>
-
-            </div>
+        <div class="form-group question">
+        <% for (let i=0; i< mcqs.length;i++) { %>
+        <div class="row">
+          <label for="question"> Question: <%= i+1 %> </label>
+          <input type="text" class="form-control" id="<%=mcqs[i]._id %>" name="<%=mcqs[i]._id %>" placeholder="<%=mcqs[i]._id%>"/>
+          <br>
+          <div class="form-inline">              
+                <input type="text" size="10" class="form-control" id="" name="" placeholder="<%=mc._id %>" /> 
+                <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mc %>" />
+                <input type="text" size="10" class="form-control" id="" name="" placeholder="c choice" /> 
+                <input type="text" size="10" class="form-control" id="" name="" placeholder="d choice" />
+          </div>
+        </div>
         
+        
+        <% } %>
+          
         </div> <!-- form group for question 1 -->
-        
-        <div class="row" id="question_fields"></div>
-        
+
         <div class="row" id="time">
             <label for="expiryDate" class="control-label col-md-2">Expiry Date: </label>
             <div class="col-md-2">
-              <input type="text" class="form-control" id="inputDate" name="inputDate" value="" required>
+              <input type="text" class="form-control" id="mcq.expire" name="mcq.expire" placeholder="mcq.expire" required>
             </div>
         </div>
-
-      </form>
-      
-      <div class="row">
+        
+         <div class="row">
         <div class="col-md-2"> 
-          <button type="button" class="btn btn-primary" onclick="addNewQ_fields();"> Add new question </button>
-        </div>   <!-- col-md-2 -->
-        <div class="col-md-2"> 
-          <button type="button" class="btn btn-success"> Submit survey </button>
+          <a href="/addMcQuestion" class="btn btn-success"> Submit survey </a>
         </div>   <!-- col-md-2 -->
       </div>
+      </form>
+      
+     
     </div> <!-- body .container -->
 <% include ../partials/footer.ejs %>
