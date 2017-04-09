@@ -163,9 +163,19 @@ router.get('/mcq', requireAuth, (req, res, next) =>{
 
 /* Create new survey */
 router.get('/tfq', requireAuth, (req, res, next) =>{
+  // Total number of t/f questions
+  let tfqQty = 10;
+  let tfqArray = [];
+  // Create a true and false question object for the Qty #.  Example 10
+  for (let i = 0; i < tfqQty; i++){
+    tfqArray.push(new TfQuestion);
+  }
+
+  
   res.render('surveys/tfq', {
      title: 'T/F Survey - Survey Ocean',
-     fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' 
+     fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' ,
+     tfqs: tfqArray
   });
 })
 
