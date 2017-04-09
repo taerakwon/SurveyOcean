@@ -61,7 +61,7 @@ router.get('/', (req, res, next) =>{
 });
 
 /* GET view survey page */
-router.get('/:id', (req, res, next) =>{
+router.get('/view/:id', (req, res, next) =>{
   try {
     let id = req.params.id;
     // Find by ID
