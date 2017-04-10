@@ -89,8 +89,14 @@ let mcqSurveySchema = new Schema({
     default: 'mcq'
   },
   createdBy: mongoose.Schema.Types.ObjectId,
-  created: {type:Date, default: Date.now},
-  expire:{type:Date}
+  createdAt: {type:Date, default: Date.now},
+  expireAt:{
+    type:Date, 
+    required: true,
+    default: function(){
+      return new Date(Date.now() + 60*60);
+    }
+  }
   },
   {
     collection: "mcsurveys"
