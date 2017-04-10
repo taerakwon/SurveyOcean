@@ -17,23 +17,38 @@
             </span></h4>            
             <button class="btn-default" data-toggle="collapse" data-target="#multipleList">Multiple Choice &nbsp;
             <span class="badge" id="surveyBadge">
-            12
+            <!-- Gets length of MCQuestions array that holds Multiple choice object -->
+            <%= mcquestions.length %>
             </span></button>
             <button class="btn-default" data-toggle="collapse" data-target="#tfList">True and False
             <span class="badge" id="surveyBadge">
+            <!-- Gets length of tfquestions array that holds TF choice object -->
             <%= tfquestions.length %>
             </span></button><br><br>
+            <!-- LIST FOR Multiple Choice -->
             <ul id="multipleList" class="list-group collapse">
-              <li class="list-group-item">add <span class="badge">5</span></li>
-              <li class="list-group-item">Deleted <span class="badge">5</span></li> 
-              <li class="list-group-item">Warnings <span class="badge">3</span></li> 
-            </ul>
-            <ul id="tfList" class="list-group collapse">
-              <% for (let i = 0; i < tfquestions.length; i++){ %>
+              <% if (mcquestions.length == 0) { %>
+              There are no multiple choice surveys available
+              <%} else {%>
+              <% for (let i = 0; i < mcquestions.length; i++){ %>
               <li class="list-group-item justify-content-between">
-                <a href="survey/view/<%= tfquestions[i]._id %>" class="btn btn-success" role="button" id="btnAnswerSurvey">Answer</a><span id="listTitle"><%=tfquestions[i].title%></span><span class="badge" id="listBadge">Total questions: <%=tfquestions[i].questions.length %>&nbsp <%=(tfquestions[i].expire).toDateString()%></span>
+                <a href="survey/mcsurvey/<%= mcquestions[i]._id %>" class="btn btn-success" role="button" id="btnAnswerSurvey">Answer</a><span id="listTitle"><%=mcquestions[i].title%></span><span class="badge" id="listBadge">Total questions: <%=mcquestions[i].questions.length %>&nbsp Exp: <%=(mcquestions[i].expireAt).toDateString()%></span>
                 </li>
               <%}%>
+              <%}%>
+            </ul>
+            <!-- LIST FOR T/F -->
+            <ul id="tfList" class="list-group collapse">
+            <% if (tfquestions.length == 0) { %>
+            There are no true and false surveys available
+            <%} else {%>
+              <% for (let i = 0; i < tfquestions.length; i++){ %>
+              <li class="list-group-item justify-content-between">
+                <a href="survey/tfsurvey/<%= tfquestions[i]._id %>" class="btn btn-success" role="button" id="btnAnswerSurvey">Answer</a><span id="listTitle"><%=tfquestions[i].title%></span><span class="badge" id="listBadge">
+                Total questions: <%=tfquestions[i].questions.length %>&nbsp Exp: <%=(tfquestions[i].expireAt).toLocaleDateString()%> @ <%=(tfquestions[i].expireAt).toLocaleTimeString()%></span>
+                </li>
+              <%}%>
+            <%}%>
             </ul>
           </div>
           <a href="survey/createNew" class="btn btn-success" role="button" id="btnPostSurvey">
