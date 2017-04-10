@@ -24,9 +24,9 @@ let TfQuestions = SurveyModel.TFQS;
 let TfQuestion = SurveyModel.TFQ;
 
 //define model for MC questions
-let MCQSModel = require('../models/surveys').MCQS;
-let MCQModel = require('../models/surveys').MCQ;
-let MCModel = require('../models/surveys').MC;
+//let MCQSModel = require('../models/surveys').MCQS;
+//let MCQModel = require('../models/surveys').MCQ;
+//let MCModel = require('../models/surveys').MC;
 
 // create a function to check if the user is authenticated
 function requireAuth(req, res, next) {
@@ -40,6 +40,7 @@ function requireAuth(req, res, next) {
 /* GET survey page. */
 router.get('/', (req, res, next) =>{  
   let tfqs = [];
+  let mcqs = [];
   async.parallel({
     one: function(callback){
       TfQuestions.find((err, model)=>{
@@ -48,13 +49,23 @@ router.get('/', (req, res, next) =>{
         }
         callback(null, tfqs);
       });
-    }},
+    },
+    two: function(callback){
+      McqsModel.find((err, mcqmodel) =>{
+        for (let i=0; i < mcqmodel.length; i++){
+          mcqs.push(mcqmodel[i]);
+        }
+        callback(null, mcqs);
+      })
+    }
+  },
     (err, results) => {
       res.render('surveys/index', { 
         page: 'survey',
         title: 'Survey - Survey Ocean',
         fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
-        tfquestions: tfqs
+        tfquestions: tfqs,
+        mcquestions: mcqs
       });  
     }
  );  

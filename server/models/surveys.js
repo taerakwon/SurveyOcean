@@ -43,7 +43,7 @@ let tfqSurveySchema = new Schema({
   expire:{type:Date}
   },
   {
-    collection: "surveys"
+    collection: "tfsurveys"
   }
 );
 
@@ -87,7 +87,7 @@ let mcqSurveySchema = new Schema({
   expire:{type:Date}
   },
   {
-    collection: "surveys"
+    collection: "mcsurveys"
   }
 );
 
