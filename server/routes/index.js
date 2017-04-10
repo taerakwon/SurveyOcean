@@ -24,7 +24,7 @@ function requireAuth(req, res, next) {
 }
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req, res, next) => {  
   res.render('content/index', {
     title: 'Survey Ocean',
     page: 'main',

@@ -1,0 +1,32 @@
+<!-- 
+  File name: tfsurvey.ejs
+  Group Number: Group 6
+  Web App name: Survey Ocean
+  Description: Display and answer survey question
+-->
+
+<% include ../../partials/header.ejs %>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/survey">Survey</a></li>
+      <li class="breadcrumb-item">Survey Title: <%=tfquestion.title%></li>
+    </ol>
+    <div style="background:transparent !important" class="jumbotron col-md-offset-2 col-md-8">
+      <h3>&nbsp;&nbsp;&nbsp; <i class="fa fa-archive"></i> Answer Survey</h3>
+    </div>
+    <div class="container">
+      <div class="row">
+        <form class="form" method="post">
+          <% for (let i = 0; i < tfquestions.length; i++) { %>
+          <div class="jumbotron col-md-12" id="tfjumbotron">
+            <span class="col-md-9" id="questionTitle"><h3>Question: "<%= tfquestions[i].question %>"</h3></span>
+            <span class="col-md-3" id="tfchoice">
+            <h3>True <input type="radio" name="<%= tfquestions[i]._id %>" value="true" required> | False <input type="radio" name="<%= tfquestions[i]._id %>" value="false" required></h3>
+            </span>
+          </div>
+          <%}%>
+          <button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i> Submit</button>
+          <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+        </form> <!-- .form -->
+      </div> <!-- body .container.row.col-msd-offset-3 col-md-6 -->
+    </div> <!-- body .container -->
+<% include ../../partials/footer.ejs %>
