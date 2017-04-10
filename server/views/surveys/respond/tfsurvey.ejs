@@ -8,7 +8,7 @@
 <% include ../../partials/header.ejs %>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/survey">Survey</a></li>
-      <li class="breadcrumb-item">Survey Title: <%=tfquestion.title%></a></li>
+      <li class="breadcrumb-item">Survey Title: <%=tfquestion.title%></li>
     </ol>
     <div style="background:transparent !important" class="jumbotron col-md-offset-2 col-md-8">
       <h3>&nbsp;&nbsp;&nbsp; <i class="fa fa-archive"></i> Answer Survey</h3>
@@ -20,7 +20,7 @@
           <div class="jumbotron col-md-12" id="tfjumbotron">
             <span class="col-md-9" id="questionTitle"><h3>Question: "<%= tfquestions[i].question %>"</h3></span>
             <span class="col-md-3" id="tfchoice">
-            <h3>True <input class="<%= tfquestions[i]._id %>" type="radio" name="<%= tfquestions[i]._id %>" value="true" required> | False <input type="radio" class="<%= tfquestions[i]._id %>" name="<%= tfquestions[i]._id %>" value="false" required></h3>
+            <h3>True <input type="radio" name="<%= tfquestions[i]._id %>" value="true" required> | False <input type="radio" name="<%= tfquestions[i]._id %>" value="false" required></h3>
             </span>
           </div>
           <%}%>

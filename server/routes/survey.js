@@ -61,7 +61,7 @@ router.get('/', (req, res, next) =>{
 });
 
 /* GET view survey page */
-router.get('/view/:id', (req, res, next) =>{
+router.get('/tfsurvey/:id', (req, res, next) =>{
   try {
     let id = req.params.id;
     // Find by ID
@@ -73,9 +73,10 @@ router.get('/view/:id', (req, res, next) =>{
         let questions = [];
         for (let i = 0; i < question.questions.length; i++){
           questions.push(question.questions[i]);
+          console.log("Questions: " + questions[i]);
         }
         // If no error
-        res.render('surveys/answer/tfsurvey', {
+        res.render('surveys/respond/tfsurvey', {
           page: 'tfsurvey',
           title: 'Survey - Survey Ocean',
           fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
@@ -90,12 +91,13 @@ router.get('/view/:id', (req, res, next) =>{
   }
 });
 
-/*Respond to survey answer*/
-router.post('/:id', (req, res, next) =>{
+/*Respond to true and false survey*/
+router.post('/tfsurvey/:id', (req, res, next) =>{
   // Set local id as id from req
   let surveyid = req.params.id;
   let numQuestions; // Holds number of questions in the survey
   let surveyQuestions; // Holds survey's question JSON object
+  let parsedJSON; // Holds parsed JSON string
   // Finds the survey by id
   TfQuestions.findById(surveyid, (err, question) => {
     // If err
@@ -106,14 +108,31 @@ router.post('/:id', (req, res, next) =>{
       numQuestions = question.questions.length;
       // surveyQUestions stores JSON objects for questions
       surveyQuestions = question.questions;
+      // Parses req.body when submit button is clicked
+      parsedJSON = JSON.parse(JSON.stringify(req.body));
         // For loop to iterate through all the questions
-      for (let i = 0; i < surveyQuestions.length; i++){
-        console.log(surveyQUestions[i]); // Trying to target element.. having challenges
+      for (let i = 0; i < numQuestions; i++){
+        // Holds _id of the question (1 question inside TFQuestions)
+        let questionid = surveyQuestions[i]._id;
+        // True and False value
+        let trueV = question.questions[i].true;
+        let falseV = question.questions[i].false;
+
+        // If parsedJSON's key (_id for TfQuestion) value is true
+        if (parsedJSON[questionid] == 'true'){
+          question.questions[i].true = trueV + 1;
+          //console.log(surveyQuestions[i].question);
+        } else {
+          question.questions[i].false = falseV + 1;
+        }
       }
+      question.save();      
     }
   });
-});
-
+  // JUST TO TEST
+  res.redirect('/');
+}
+);
 
 /* Create new survey */
 router.get('/createNew', requireAuth, (req, res, next) =>{
