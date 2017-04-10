@@ -1,63 +1,51 @@
 <!-- 
-  File name: index.ejs
+  File name: tfq.ejs
   Group Number: Group 6
   Web App name: Survey Ocean
-  Description: Survey main page
+  Description: Create a new T/F Question
 -->
 
 <% include ../partials/header.ejs %>
+<!-- Breadcrumb -->
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/survey">Survey</a></li>
-      <li class="breadcrumb-item">New Survey</a></li>
+      <li class="breadcrumb-item"><a href="/survey/createNew">New Survey</a></li>
+      <li class="breadcrumb-item">True / False Questions</li>
     </ol>
-    <div style="background:transparent !important" class="jumbotron col-md-offset-1 col-md-1">
-      <!-- <h3>&nbsp;&nbsp;&nbsp; <i class="fa fa-archive"></i> New Survey</h3> -->
-    </div>   
     <div class="container">
-      <form class="form-horizontal">
-        <div class="form-group" id="insertRow">
-
-        <table class"table">
-          <tr>
-            <td>Survey Name: </td>
-            <td><input type="question" class="form-control" id="nameOfSurvey" placeholder="Survey Name"></td><br>
-          </tr>
-          <br>
-          <tr>  
-            <td> Survey Life Time: </td>
-            <td> <input type="question" class="form-control" id="surveyLifeTime" placeholder="Survey Life Time"> </td>
-          </tr>
-
-        </table>
-
+      <form class="form-horizontal" method="post">
+        <div class="form-group jumbotron" id="mcqJumbotron">          
+          <label class="col-sm-2 control-label">Survey Title:</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control input-sm" name="surveytitle" placeholder="Survey Title" required><br><br>
+          </div>
+          <label class="col-sm-5 control-label">Survey Duration in Hours (Min: 1 Hour, Max 48 Hours):</label>
+          <div class="col-sm-1">
+            <input type="number" class="form-control input-sm" name="duration" value="1" min="1" max="48" maxlength="2" required>
+          </div>
           <table class="table">     
             <tr>
               <th class="text-center">#</th>
               <th class="text-center">Question</th>
               <th class="text-center"></th>
             </tr>
-          <!-- Template Row -->
-          <% for (let i=0; i < tfqs.length; i++){ %>
+            <!-- Template Row -->
+            <% for (let i=0; i < totalQuestions; i++){ %>
             <tr>               
               <td class="text-center"> <%=i+1%> </td>
-              <td class="text-center">                     
-                <input type="question" class="form-control" id="question1value" placeholder="">                    
+              <td class="text-center">               
+              <% if (i == 0) {%>
+                <input type="text" class="form-control" name="question<%=i%>" placeholder="Please enter your question (Max 100 Characters)" maxLength="100" required>
+              <%}else{%>
+                <input type="text" class="form-control" name="question<%=i%>" placeholder="Please enter your question (Max 100 Characters)" maxLength="100">
+              <%}%>
               </td>
-    
-              <td class="text-center"> <%=tfqs[i]._id%></a> </td>
             </tr>
-          <% } %>
+            <%}%>
           </table>
-          
+          <button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>Create Survey</button> &nbsp;
+          <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>      
         </div>
-        <table class="table">
-
-        <tr>
-          <a href="/addTfQuestion" type="button" class="btn btn-success col-md-offset-8 col-md-2"> Create Survey </a>
-          <a href="/addTfQuestion" type="button" class="btn btn-warning"> Cancel </a>
-        </tr>
-        
-        </table>
-        </form>
+      </form>
     </div> <!-- body .container -->
 <% include ../partials/footer.ejs %>

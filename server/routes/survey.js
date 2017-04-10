@@ -10,6 +10,8 @@ let router = express.Router();
 let mongoose = require('mongoose');
 // module required for authentication
 let passport = require('passport');
+// Moments.js for time and date manipulation
+let moment = require('moment');
 
 // Async
 let async = require('async');
@@ -23,17 +25,12 @@ let McqsModel = SurveyModel.MCQS;
 let TfQuestions = SurveyModel.TFQS;
 let TfQuestion = SurveyModel.TFQ;
 
-//define model for MC questions
-//let MCQSModel = require('../models/surveys').MCQS;
-//let MCQModel = require('../models/surveys').MCQ;
-//let MCModel = require('../models/surveys').MC;
-
 // create a function to check if the user is authenticated
 function requireAuth(req, res, next) {
   // check if the user is logged in
   if(!req.isAuthenticated()) {
     return res.redirect('/login');
-  }
+  } 
   next();
 }
 
@@ -145,6 +142,38 @@ router.post('/tfsurvey/:id', (req, res, next) =>{
 }
 );
 
+/* GET view survey page for multiplechoice */
+router.get('/mcsurvey/:id', (req, res, next) =>{
+  try {
+    let id = req.params.id;
+    // Find by ID
+    McqsModel.findById(id, (err, question) => {
+      // If error
+      if (err) {
+        return console.error(err);
+      } else {
+        let questions = [];
+        for (let i = 0; i < question.questions.length; i++){
+          // Stores mc questions into questions array
+          questions.push(question.questions[i]);
+          console.log("Questions: " + questions[i]);
+        }
+        // If no error
+        res.render('surveys/respond/mcsurvey', {
+          page: 'mcsurvey',
+          title: 'Survey - Survey Ocean',
+          fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
+          mcquestion: question,
+          mcquestions: questions
+        });
+      }
+    })
+  } catch (err) {
+    // Log error
+    return console.error(err);
+  }
+});
+
 /* Create new survey */
 router.get('/createNew', requireAuth, (req, res, next) =>{
   res.render('surveys/create', {
@@ -191,23 +220,58 @@ router.get('/mcq', requireAuth, (req, res, next) =>{
   });
 })
 
-/* Create new survey */
+/* View create new t/f survey */
 router.get('/tfq', requireAuth, (req, res, next) =>{
   // Total number of t/f questions
   let tfqQty = 10;
-  let tfqArray = [];
   // Create a true and false question object for the Qty #.  Example 10
-  for (let i = 0; i < tfqQty; i++){
-    tfqArray.push(new TfQuestion);
-  }
-
-  
   res.render('surveys/tfq', {
      title: 'T/F Survey - Survey Ocean',
      fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '' ,
-     tfqs: tfqArray
+     totalQuestions: tfqQty,
+     currentDate: moment().format('YYYY-MM-D'),
+     maxDate: moment().add(1, "month").format('YYYY-MM-D'),
+     currentTime: moment().format('HH:mm')
   });
 })
 
+/* Create a new t/f survey */
+/* View create new t/f survey */
+router.post('/tfq', requireAuth, (req, res, next) =>{
+  // Total number of t/f questions
+  let tfqQty = 10;
+  let stitle = req.body.surveytitle; // Name of survey
+  let duration = req.body.duration; // Duration in hours (MAX 48)
+  let parsedJSON; // Holds parsed JSON string
+  parsedJSON = JSON.parse(JSON.stringify(req.body));  
+  let aQuestions = [];  
+
+  for (let i = 0; i < 10; i++){    
+    // If question is not entered, do not create an object
+    if (parsedJSON['question'+i].trim() != ''){
+      aQuestions.push(new SurveyModel.TFQ({
+      question: parsedJSON['question'+i],
+      true:0,
+      false:0
+      }));
+    }  
+  }
+  let tfSurvey = new SurveyModel.TFQS({
+    title: stitle,
+    questions: aQuestions,
+    surveyType: "tfq",
+    expireAt: new Date(Date.now() + duration*60*60*1000)
+  });
+
+  tfSurvey.save(tfSurvey, (err, tfqs) => {
+    if (err){
+      console.error(err);
+      res.end(err);
+    } else {
+      res.redirect('/');
+    }
+  })
+})
 
 module.exports = router;
+

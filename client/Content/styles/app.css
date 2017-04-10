@@ -71,6 +71,11 @@ ul.list-group.collapse{
   font-size: 16pt;
 }
 
+/* Create MCQ */
+#mcqJumbotron{
+  color: #000000;
+}
+
 /* ETC */
 #surveyBadge {
   background-color:#0066cc;
