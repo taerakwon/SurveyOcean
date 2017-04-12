@@ -31,13 +31,20 @@ function requireAuth(req, res, next) {
 /* ADD NEW SURVEY */
 router.get('/add', requireAuth, (req, res, next) =>{
   let tfq = new SurveyModel.TFQ({
-    question: "Hey, I guess it's working",
+    question: "Testing Data First Question",
+    true: 0,
+    false: 0
+  });
+
+  let tfq1 = new SurveyModel.TFQ({
+    question: "This is second question",
     true: 0,
     false: 0
   });
 
   let tfqs = new SurveyModel.TFQS({
-    questions: [tfq],
+    title: "What do you think about Centennial?",
+    questions: [tfq, tfq1],
     createdBy: req.user._id,
     surveyType: "tfq",
     expire: 'July 22, 2017 14:00:00'

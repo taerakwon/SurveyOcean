@@ -46,14 +46,43 @@ nav .container .navbar-header {
   margin-top: -5%;
 }
 
+#btnAnswerSurvey{
+  width: 75px;
+}
+
 ul.list-group.collapse{
   color: black;
 }
 
 
+#listTitle{
+  font-size: 18pt;
+  vertical-align: middle;
+  margin-left: 5%;
+}
+
+/* T/F View */
+#questionTitle{
+  color: #0066cc;
+}
+
+#tfchoice{
+  color: #000000;
+  font-size: 16pt;
+}
+
+/* Create MCQ */
+#mcqJumbotron{
+  color: #000000;
+}
+
 /* ETC */
 #surveyBadge {
   background-color:#0066cc;
+}
+
+#listBadge{
+  margin-top: 10px;
 }
 
 .breadcrumb{

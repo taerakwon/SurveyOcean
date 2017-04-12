@@ -47,3 +47,17 @@ function delQ_field(){
     question--;
     console.log(question);
 }
+
+
+// Script to pass JSON data when submit button is pressed
+
+function formToJSON(formArray){
+  let returnArray = {};
+  for (let i = 0; i < formArray.length; i++){
+    // Gets name attribute from formArray then set its value
+    returnArray[formArray[i]['name']] = formArray[i]['value'];
+  }
+  document.getElementsByName('submitSurvey').value = returnArray;
+  console.log(returnArray.length);
+}
+
