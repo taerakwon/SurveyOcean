@@ -17,42 +17,49 @@
     <div class="container">
       <form class="form-horizontal" method="post">
       <div class="form-group"> 
-        <label for="title" class="control-label col-md-2">Title: </label>
-        <div class="col-md-10">
-          <input type="text" class="form-control" id="<%= mcq %>" name="<%= mcq %>" placeholder="<%= mcq %>" required>
+        <div class="col-md-6">          
+            <label for="title" class="col-sm-2 control-label">Title: </label>
+            <input type="text" class="col-sm form-control" id="<%= mcq %>" name="sTitle" placeholder="<%= mcq %>" required>
+        </div>
+         <div class="col-md-6" id="time">
+            <div class="col-md-4">
+              <label for="expiryDate" class="control-label"> Survey Duration (Min: 1 Hour, Max: 48 Hours</label>
+            </div>
+            <div class="col-md-2">
+              <input type="number" class="form-control" id="mcq.expire" name="mcq.expire" placeholder="mcq.expire" value="1" min="1" max="48" maxlength="2" required>
+            </div>
         </div>
       </div>
         
         <div class="form-group question">
-        <% for (let i=0; i< mcqs.length;i++) { %>
-        <div class="row">
-          <label for="question"> Question: <%= i+1 %> </label>
-          <input type="text" class="form-control" id="<%=mcqs[i]._id %>" name="<%=mcqs[i]._id %>" placeholder="<%=mcqs[i]._id%>"/>
-          <br>
-          <div class="form-inline">              
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="<%=mc._id %>" /> 
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mc %>" />
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="c choice" /> 
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="d choice" />
-          </div>
-        </div>
-        
-        
+        <% for (let i=0; i< mcq.length;i++) { %>
+            <div class="row">
+              <label for="question"> Question: <%= i+1 %> </label>
+              <input type="text" class="form-control" id="<%= mcq[i]._id %>" name="<%= %>" placeholder="<%= %>"/>
+              <br>
+              
+                  <div class="form-inline">              
+                        <input type="text" size="10" class="form-control" id="" name="" placeholder="<%=   %>"/> 
+                        <input type="text" size="10" class="form-control" id="" name="" placeholder="<%=  %>"/>
+                        <input type="text" size="10" class="form-control" id="" name="" placeholder="<%=  %>"/> 
+                        <input type="text" size="10" class="form-control" id="" name="" placeholder="<%=  %>"/>
+                  </div>
+              
+            </div>
         <% } %>
+        
+        
+        
           
         </div> <!-- form group for question 1 -->
 
-        <div class="row" id="time">
-            <label for="expiryDate" class="control-label col-md-2">Expiry Date: </label>
-            <div class="col-md-2">
-              <input type="text" class="form-control" id="mcq.expire" name="mcq.expire" placeholder="mcq.expire" required>
-            </div>
-        </div>
+       
         
          <div class="row">
         <div class="col-md-2"> 
-          <a href="/addMcQuestion" class="btn btn-success"> Submit survey </a>
+          <a href="/addMcQuestion" class="btn btn-success"><i class="fa fa-check-square-o"></i>Submit survey </a>
         </div>   <!-- col-md-2 -->
+        <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>     
       </div>
       </form>
       
