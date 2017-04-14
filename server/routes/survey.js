@@ -188,50 +188,38 @@ router.get('/createNew', requireAuth, (req, res, next) =>{
   });
 })
 
-/* Create new MC survey */
+/* View Create new MC survey */
 router.get('/mcq', requireAuth, (req, res, next) =>{
   let mcqty = 10;
   let mcoqty = 4;
-  let mcquestions = [];
-  let mcos = [];
- 
+  let mcSurvey = new MCQSModel();
+  let mcQuestions = [];
+
   //For every question, push a new object -- 10 max questions
   for(let i = 0; i < mcqty; i++){
-    mcquestions.push(new MCQModel);
-    
+    let mcquestion = new MCQModel();
+    let mcOption = [];       
     //For every multiple choice options, push a new object -- 4 max options
     for (let j = 0; j < mcoqty; j++) {
-      mcos.push(new MCModel);
+      mcOption.push(new MCModel);    
     }
+    mcquestion.options = mcOption;
+    mcQuestions.push(mcquestion);    
   }
+  mcSurvey.questions= mcQuestions;
   
-  let mcSurvey = new MCQSModel();
-  let mcQuestion = new MCQModel();
-  let mcOption = new MCModel();
-  mcSurvey.questions = mcquestions;
-  
-  mcQuestion.options = mcos;
-  mcOption = mcos;
-
-  //testing purposes will delete when complete
-  console.log("page holder " + mcSurvey._id);
-  console.log(" ");
-  console.log("each mc questions " + mcSurvey.questions);
-  console.log(" ");
-  console.log("each mc options " + mcOption);
-  console.log(" ");
-  console.log("holder all " + mcSurvey);  
-  console.log("mcQuestion.options " + mcos);
-
   //render view to surveys/mcq
   res.render('surveys/mcq', {
     title:'MC Survey - Survey Ocean',
     fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
-    mcq: mcSurvey.questions,
+    totalQuestions:mcqty,
     mcqs: mcSurvey,
-    mc: mcOption
+    mcq: mcQuestions,
+    currentDate: moment().format('YYYY-MM-D'),
+    maxDate: moment().add(1, "month").format('YYYY-MM-D'),
+    currentTime: moment().format('HH:mm')
   });
-})
+});
 
 
 /* View create new t/f survey */
