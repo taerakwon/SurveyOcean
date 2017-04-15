@@ -1,14 +1,14 @@
 <!-- 
-  File name: tfsurvey.ejs
+  File name: mcsurvey.ejs
   Group Number: Group 6
   Web App name: Survey Ocean
-  Description: Display and answer survey question
+  Description: Display and answer multiple choice survey question
 -->
 
 <% include ../../partials/header.ejs %>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/survey">Survey</a></li>
-      <li class="breadcrumb-item">Survey Title: <%=tfquestion.title%></a></li>
+      <li class="breadcrumb-item">Survey Title: <%=mcquestion.title%></li>
     </ol>
     <div style="background:transparent !important" class="jumbotron col-md-offset-2 col-md-8">
       <h3>&nbsp;&nbsp;&nbsp; <i class="fa fa-archive"></i> Answer Survey</h3>
@@ -16,11 +16,11 @@
     <div class="container">
       <div class="row">
         <form class="form" method="post">
-          <% for (let i = 0; i < tfquestions.length; i++) { %>
-          <div class="jumbotron col-md-12" id="tfjumbotron">
-            <span class="col-md-9" id="questionTitle"><h3>Question: "<%= tfquestions[i].question %>"</h3></span>
-            <span class="col-md-3" id="tfchoice">
-            <h3>True <input class="<%= tfquestions[i]._id %>" type="radio" name="<%= tfquestions[i]._id %>" value="true" required> | False <input type="radio" class="<%= tfquestions[i]._id %>" name="<%= tfquestions[i]._id %>" value="false" required></h3>
+          <% for (let i = 0; i < mcquestions.length; i++) { %>
+          <div class="jumbotron col-md-12" id="mcjumbotron">
+            <span class="col-md-9" id="questionTitle"><h3>Question: "<%= mcquestions[i].question %>"</h3></span>
+            <span class="col-md-3" id="mcchoice">
+            <h3>True <input type="radio" name="<%= mcquestions[i]._id %>" value="true" required> | False <input type="radio" name="<%= mcquestions[i]._id %>" value="false" required></h3>
             </span>
           </div>
           <%}%>

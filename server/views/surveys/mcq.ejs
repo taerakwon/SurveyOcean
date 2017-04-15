@@ -8,54 +8,85 @@
 <% include ../partials/header.ejs %>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/survey">Survey</a></li>
-      <li class="breadcrumb-item">New Survey</a></li>
+      <li class="breadcrumb-item"><a href="/survey/createNew">New Survey</a></li>
+      <li class="breadcrumb-item">Multiple Choice Questions</li>
     </ol>
-    <div style="background:transparent !important" class="jumbotron col-md-offset-2 col-md-8">
-      <h3>&nbsp;&nbsp;&nbsp; <i class="fa fa-archive"></i> New Survey</h3>
-    </div>
-    
     <div class="container">
-      <form class="form-horizontal" method="post">
-      <div class="form-group"> 
-        <label for="title" class="control-label col-md-2">Title: </label>
-        <div class="col-md-10">
-          <input type="text" class="form-control" id="<%= mcq %>" name="<%= mcq %>" placeholder="<%= mcq %>" required>
-        </div>
-      </div>
-        
-        <div class="form-group question">
-        <% for (let i=0; i< mcqs.length;i++) { %>
-        <div class="row">
-          <label for="question"> Question: <%= i+1 %> </label>
-          <input type="text" class="form-control" id="<%=mcqs[i]._id %>" name="<%=mcqs[i]._id %>" placeholder="<%=mcqs[i]._id%>"/>
-          <br>
-          <div class="form-inline">              
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="<%=mc._id %>" /> 
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mc %>" />
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="c choice" /> 
-                <input type="text" size="10" class="form-control" id="" name="" placeholder="d choice" />
-          </div>
-        </div>
-        
-        
-        <% } %>
+        <form class="form-horizontal" method="post">
+          <div class="form-group jumbotron" id="mcqJumbotron">
+              <label class="col-sm-2 control-label">Survey Title:</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" name="surveytitle" placeholder="Survey Title" required><br><br>
+              </div>
+              <label class="col-sm-5 control-label">Survey Duration in Hours (Min: 1 Hour, Max 48 Hours):</label>
+              <div class="col-sm-1">
+                <input type="number" class="form-control input-sm" name="duration" value="1" min="1" max="48" maxlength="2" required>
+              </div>
           
-        </div> <!-- form group for question 1 -->
-
-        <div class="row" id="time">
-            <label for="expiryDate" class="control-label col-md-2">Expiry Date: </label>
-            <div class="col-md-2">
-              <input type="text" class="form-control" id="mcq.expire" name="mcq.expire" placeholder="mcq.expire" required>
-            </div>
+          <table class="table">     
+            <tr>
+              <th class="text-center">#</th>
+              <th class="text-center">Question</th>
+              <th class="text-center"></th>
+            </tr>
+            <!-- Template Row -->
+            <% for (let i=0; i < totalQuestions; i++){ %>
+            <tr>               
+              <td class="text-center"> <%=i+1%> </td>
+              <td class="text-center">               
+              <% if (i == 0) {%>
+                <input type="text" class="form-control" name="question <%= i %>" placeholder="Please enter your question (Max 100 Characters)" maxLength="100" required/>
+                <br>
+                
+                <div class="form-inline">    
+                  <div class="col-sm-3">
+                    <label class="control-label"> A: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_1" placeholder="" required/> 
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="control-label"> B: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_2" placeholder="" required/> 
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="control-label"> C: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_3" placeholder="" required/> 
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="control-label"> D: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_4" placeholder="" required/> 
+                  </div>
+                </div>
+              <% } else { %>
+                <input type="text" class="form-control" name="question <%= i %>" placeholder="Please enter your question (Max 100 Characters)" maxLength="100"/>
+                <br>
+                <div class="form-inline">    
+                  <div class="col-sm-3">
+                    <label class="control-label"> A: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_1" placeholder="" /> 
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="control-label"> B: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_2" placeholder="" /> 
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="control-label"> C: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_3" placeholder="" /> 
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="control-label"> D: </label>
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_4" placeholder=""/> 
+                  </div>
+                </div>
+              <%}%>
+              </td>
+            </tr>
+            <%}%>
+          </table>
+          <button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i>Create Survey</button> &nbsp;
+          <a href="/survey" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>       
+        </form> <!-- form -->   
         </div>
-        
-         <div class="row">
-        <div class="col-md-2"> 
-          <a href="/addMcQuestion" class="btn btn-success"> Submit survey </a>
-        </div>   <!-- col-md-2 -->
-      </div>
-      </form>
-      
-     
-    </div> <!-- body .container -->
+    </div> <!-- body.container -->
+    
+    
 <% include ../partials/footer.ejs %>
