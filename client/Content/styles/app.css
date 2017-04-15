@@ -93,6 +93,10 @@ ul.list-group.collapse{
   color: white;
 }
 
+#logoImage{
+  width: 50%;
+}
+
 img {
   display: block;
   margin-top: -5%;
@@ -119,4 +123,8 @@ img.steps {
   border: 1px solid black;
   font-size: 16px;
   text-align: center;
+}
+
+.container a {
+  color: #c0c0c0;
 }
