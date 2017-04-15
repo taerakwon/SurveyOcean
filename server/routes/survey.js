@@ -190,35 +190,98 @@ router.get('/createNew', requireAuth, (req, res, next) =>{
 
 /* View Create new MC survey */
 router.get('/mcq', requireAuth, (req, res, next) =>{
+  //# of questions
   let mcqty = 10;
+  //# of mc options
   let mcoqty = 4;
   let mcSurvey = new MCQSModel();
   let mcQuestions = [];
+ 
 
   //For every question, push a new object -- 10 max questions
   for(let i = 0; i < mcqty; i++){
     let mcquestion = new MCQModel();
-    let mcOption = [];       
+    let mcOption = [];
     //For every multiple choice options, push a new object -- 4 max options
     for (let j = 0; j < mcoqty; j++) {
       mcOption.push(new MCModel);    
     }
     mcquestion.options = mcOption;
-    mcQuestions.push(mcquestion);    
+    mcQuestions.push(mcquestion);   
   }
   mcSurvey.questions= mcQuestions;
-  
+
   //render view to surveys/mcq
   res.render('surveys/mcq', {
     title:'MC Survey - Survey Ocean',
     fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
     totalQuestions:mcqty,
-    mcqs: mcSurvey,
-    mcq: mcQuestions,
+    totalOptions:mcoqty,
+    mcq:mcQuestions,
     currentDate: moment().format('YYYY-MM-D'),
     maxDate: moment().add(1, "month").format('YYYY-MM-D'),
     currentTime: moment().format('HH:mm')
   });
+});
+
+/* Create a new MC Survey */
+/* View create new MC Survey */
+router.post('/mcq', requireAuth,(req,res,next) => {
+  //# of mcquestions
+  let mcqty = 10;
+  let sTitle = req.body.surveytitle;
+  let duration = req.body.duration;
+  let parsedJSON = JSON.parse(JSON.stringify(req.body));
+
+  function replace(key,value){
+    if(typeof value === 'array')
+    {
+      return undefined;
+    }
+    return value;
+  }  
+
+  let parsedJSONOption = JSON.parse(JSON.stringify(req.body,replace));
+  
+  
+  let aQuestions = [];
+  
+    
+  for(let i = 0; i < mcqty; i++) {
+    let aOptions = [];   
+    if(parsedJSON['question '+ i].trim != ''){
+        for(let a = 0; a < 5; a++){    
+          if(parsedJSONOption['option' + i + '_' + a]) {
+            console.log(parsedJSONOption);
+            aOptions.push(new SurveyModel.MC({
+            option: parsedJSONOption['option' + i + '_' + a],
+            counter:0
+            }));
+          }
+        }
+        aQuestions.push(new SurveyModel.MCQ({
+        question: parsedJSON['question '+ i],
+        options: aOptions
+      }));
+    }     
+  }
+  
+  let mcSurvey = new SurveyModel.MCQS({
+    title: sTitle,
+    questions: aQuestions,
+    surveyType:'mcq',
+    expireAt: new Date(Date.now() + duration*60*60*1000)
+  });
+  
+  mcSurvey.save(mcSurvey,(err,mcqs) => {
+    if(err) {
+      console.error(err);
+      res.end(err);
+    } else {
+      res.redirect('/');
+    }
+  })
+
 });
 
 
@@ -245,12 +308,14 @@ router.post('/tfq', requireAuth, (req, res, next) =>{
   let stitle = req.body.surveytitle; // Name of survey
   let duration = req.body.duration; // Duration in hours (MAX 48)
   let parsedJSON; // Holds parsed JSON string
-  parsedJSON = JSON.parse(JSON.stringify(req.body));  
+  parsedJSON = JSON.parse(JSON.stringify(req.body));
+    
   let aQuestions = [];  
 
   for (let i = 0; i < 10; i++){    
     // If question is not entered, do not create an object
     if (parsedJSON['question'+i].trim() != ''){
+      
       aQuestions.push(new SurveyModel.TFQ({
       question: parsedJSON['question'+i],
       true:0,

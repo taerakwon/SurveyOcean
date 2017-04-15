@@ -37,22 +37,23 @@
               <% if (i == 0) {%>
                 <input type="text" class="form-control" name="question <%= i %>" placeholder="Please enter your question (Max 100 Characters)" maxLength="100" required/>
                 <br>
+                
                 <div class="form-inline">    
                   <div class="col-sm-3">
                     <label class="control-label"> A: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>" required/> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_1" placeholder="" required/> 
                   </div>
                   <div class="col-sm-3">
                     <label class="control-label"> B: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>" required/> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_2" placeholder="" required/> 
                   </div>
                   <div class="col-sm-3">
                     <label class="control-label"> C: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>" required/> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_3" placeholder="" required/> 
                   </div>
                   <div class="col-sm-3">
                     <label class="control-label"> D: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>" required/> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_4" placeholder="" required/> 
                   </div>
                 </div>
               <% } else { %>
@@ -61,19 +62,19 @@
                 <div class="form-inline">    
                   <div class="col-sm-3">
                     <label class="control-label"> A: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>" /> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_1" placeholder="" /> 
                   </div>
                   <div class="col-sm-3">
                     <label class="control-label"> B: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>" /> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_2" placeholder="" /> 
                   </div>
                   <div class="col-sm-3">
                     <label class="control-label"> C: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>" /> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_3" placeholder="" /> 
                   </div>
                   <div class="col-sm-3">
                     <label class="control-label"> D: </label>
-                    <input type="text" size="10" class="form-control" id="" name="" placeholder="<%= mcq[i].options[0]  %>"/> 
+                    <input type="text" size="10" class="form-control" id="" name="option<%= i %>_4" placeholder=""/> 
                   </div>
                 </div>
               <%}%>
