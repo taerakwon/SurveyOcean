@@ -232,21 +232,18 @@ router.post('/mcq', requireAuth,(req,res,next) => {
   let sTitle = req.body.surveytitle;
   let duration = req.body.duration;
   let parsedJSON = JSON.parse(JSON.stringify(req.body));
+  let parsedJSONOption = JSON.parse(JSON.stringify(req.body,replace));
+  let aQuestions = [];
 
+  //function that looks for any values that is an array type
   function replace(key,value){
     if(typeof value === 'array')
     {
       return undefined;
     }
     return value;
-  }  
+  } 
 
-  let parsedJSONOption = JSON.parse(JSON.stringify(req.body,replace));
-  
-  
-  let aQuestions = [];
-  
-    
   for(let i = 0; i < mcqty; i++) {
     let aOptions = [];   
     if(parsedJSON['question '+ i].trim != ''){
@@ -272,7 +269,7 @@ router.post('/mcq', requireAuth,(req,res,next) => {
     surveyType:'mcq',
     expireAt: new Date(Date.now() + duration*60*60*1000)
   });
-  
+  //send data to mlab
   mcSurvey.save(mcSurvey,(err,mcqs) => {
     if(err) {
       console.error(err);
