@@ -105,3 +105,18 @@ img.steps {
   width: 20%;
   padding-right: 40px;
 }
+
+/* RESULT */
+#displayTF {
+  color: black;
+  background-color: white;
+  width: 60%;
+  text-align: center;
+  margin: auto;
+}
+
+#displayTF th{
+  border: 1px solid black;
+  font-size: 16px;
+  text-align: center;
+}

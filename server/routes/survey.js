@@ -324,7 +324,8 @@ router.post('/tfq', requireAuth, (req, res, next) =>{
     title: stitle,
     questions: aQuestions,
     surveyType: "tfq",
-    expireAt: new Date(Date.now() + duration*60*60*1000)
+    expireAt: new Date(Date.now() + duration*60*60*1000),
+    createdBy: req.user._id
   });
 
   tfSurvey.save(tfSurvey, (err, tfqs) => {
