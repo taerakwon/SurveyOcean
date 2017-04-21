@@ -163,12 +163,14 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
           // Stores mc questions into questions array
           questions.push(question.questions[i]);
           let options = [];
-          console.log("Questions: " + questions[i]);
+
+          //console.log("Questions: " + questions[i]);
           for(let a = 0; a < questions[i].options.length; a++){
             //stores each of the options into options array
             options.push(questions[i].options[a]);
-            console.log("  ");
-            console.log("Option: " + questions[i].options[a]);  
+            //console.log("  ");
+            //console.log("Option: " + questions[i].options[a]);  
+
           }        
         }
         // If no error
@@ -189,6 +191,51 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
 });
 
 /* Respond to MC Survey */
+
+router.post('/mcsurvey/:id', (req,res,next) => {
+  //create variable for local id
+  let id = req.params.id;
+  let numQuestions;
+  let options;
+  let surveyQuestions;
+  let parsedJSON;
+
+  MCQSModel.findById(id, (err,question) => {
+    //error
+    if(err) {
+      console.error(err);
+      res.end(err);
+    } else {
+      //set numQuestions for length of survey
+      numQuestions = question.questions.length;
+      //set each surveyQuestions as questions
+      surveyQuestions = question.questions;
+      options = question.questions.options;
+      parsedJSON = JSON.parse(JSON.stringify(req.body));
+      console.log("req.body: %j",parsedJSON); //display the json obj for each question id, which mc choice has been selected
+       
+      //for every mc questions in the survey (10)
+      for (let i = 0; i < numQuestions; i++){
+        let questionid = surveyQuestions[i]._id;        
+        console.log("ParsedJSON: %j",parsedJSON[questionid]);
+        console.log("options length: %j",question.questions[i].options.length);
+        for(let a = 0; a < question.questions[i].options.length; a++) {
+           let optionid = question.questions[i].options[a]._id;
+           let icounter = question.questions[i].options[a].counter;
+           console.log("counter: %j",icounter);
+           console.log("Options: %j",optionid);
+           if(parsedJSON[questionid] == optionid){
+             icounter = icounter+1;
+             question.questions[i].options[a].counter = icounter;
+           }
+        }  
+      }
+      question.save();
+    }
+  });
+  res.redirect('/');
+});
+
 
 
 /* Create new survey */
