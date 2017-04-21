@@ -18,11 +18,35 @@
         <table class="table table-striped table-hover table-responsive" id="displayTF">
           <tbody>
             <tr><td colspan="4">True and False Questions</td><tr>
-            <tr><th width="75px">Que #</th><th>Options</th><th>True</th><th>False</th></tr>
+            <tr><th width="75px">Que #</th><th>Question</th><th>True</th><th>False</th></tr>
             <% for (let i = 0; i < tfquestions.length; i++){ %>
-            <tr><td colspan="4">Question #:<%=i+1%> - "<%=tfquestions[i].title%>"</td><tr>
+            <tr><td colspan="4">Survey #:<%=i+1%> - "<%=tfquestions[i].title%>"</td><tr>
                 <% for (let j = 0; j < tfquestions[i].questions.length; j++) {%>
                     <tr><td><%=i+1%>.<%=j + 1%></td><td><%=tfquestions[i].questions[j].question%></td><td><%=tfquestions[i].questions[j].true%></td><td><%=tfquestions[i].questions[j].false%></td></tr>
+                <% } %>
+            <% } %>
+          </tbody>
+        </table>
+        <br>
+        <table class="table table-striped table-hover table-responsive" id="displayMC">
+          <tbody>
+            <tr><td colspan="10">Multiple Choice Questions</td></tr>
+            <tr><th width="75px">Que #</th><th>Question</th><th>Option A</th><th>Counter</th><th>Option B</th><th>Counter</th><th>Option C</th><th>Counter</th><th>Option D</th><th>Counter</th></tr>
+            <% for (let i = 0; i < mcquestions.length; i++) { %>
+              <tr><td colspan="10">Survey #: <%=i+1 %> - "<%= mcquestions[i].title%>"</td></tr>
+                <% for (let a = 0; a < mcquestions[i].questions.length; a++) { %>
+                    <tr>
+                      <td><%= i+1 %>.<%=a+1%></td>
+                      <td><%= mcquestions[i].questions[a].question %></td>
+                      <td><%= mcquestions[i].questions[a].options[0].option %></td>
+                      <td><%= mcquestions[i].questions[a].options[0].counter %></td>
+                      <td><%= mcquestions[i].questions[a].options[1].option %></td>
+                      <td><%= mcquestions[i].questions[a].options[1].counter %></td>
+                      <td><%= mcquestions[i].questions[a].options[2].option %></td>
+                      <td><%= mcquestions[i].questions[a].options[2].counter %></td>
+                      <td><%= mcquestions[i].questions[a].options[3].option %></td>
+                      <td><%= mcquestions[i].questions[a].options[3].counter %></td>
+                    </tr>
                 <% } %>
             <% } %>
           </tbody>
