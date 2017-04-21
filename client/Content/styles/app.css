@@ -93,6 +93,10 @@ ul.list-group.collapse{
   color: white;
 }
 
+.emailfont a{
+  color: white;
+}
+
 .logo{
   margin-top: -4%;
 }
