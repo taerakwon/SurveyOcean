@@ -163,12 +163,14 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
           // Stores mc questions into questions array
           questions.push(question.questions[i]);
           let options = [];
+
           //console.log("Questions: " + questions[i]);
           for(let a = 0; a < questions[i].options.length; a++){
             //stores each of the options into options array
             options.push(questions[i].options[a]);
             //console.log("  ");
             //console.log("Option: " + questions[i].options[a]);  
+
           }        
         }
         // If no error
@@ -189,6 +191,7 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
 });
 
 /* Respond to MC Survey */
+<<<<<<< HEAD
 router.post('/mcsurvey/:id', (req,res,next) => {
   //create variable for local id
   let id = req.params.id;
@@ -227,6 +230,8 @@ router.post('/mcsurvey/:id', (req,res,next) => {
   });
   res.redirect('/');
 });
+=======
+>>>>>>> 23a0623f8144d00033e9f24a9c863af4db830c1e
 
 
 /* Create new survey */

@@ -93,18 +93,45 @@ ul.list-group.collapse{
   color: white;
 }
 
+.logo{
+  margin-top: -4%;
+}
+
 img {
+  border-radius:4%;
   display: block;
-  margin-top: -5%;
-  width: 100%;
-  height: 80%;;
+  margin-top: -9%;
+  width: 80%;
+  height: 72%;
+  margin: auto;
 }
 
 img.steps {
+  margin-top: -9%;
   display: inline-block;
   width: 20%;
   padding-right: 40px;
 }
+
+div.team{
+    display: inline-block;
+    width: 95%;
+    border-radius:15%;
+    overflow:hidden;
+}
+
+.teamMemberName h4{
+  text-align: center;
+}
+
+.teamMemberInfo p{
+  text-align: center;
+}
+
+.teamMemberInfo article{
+  text-align: center;
+}
+
 
 /* RESULT */
 #displayTF {
