@@ -84,6 +84,7 @@ let json2csvCallback = (err, csv) => {
   console.log(csv);
 }
 
+//Export TF Survey
 router.get('/export', function(req, res){
   let id = req.params.id;
   let tfqs = [];
@@ -120,6 +121,55 @@ router.get('/export', function(req, res){
       res.status(200).send(csv);
     });
   });
-})
+});
+
+//Export MC Survey
+router.get('/exportMc', function(req,res){
+  let id = req.params.id;
+  let mcqs = [];
+  
+  let exportArray = [];
+  MCQSModel.find({createdBy:req.user._id}, (err,model) => {
+    for (let i=0; i < model.length; i++){
+      mcqs.push(model[i]);
+    }
+    //finding each surveys in mcqs array
+    for (let a = 0; a < mcqs.length; a++) {
+      let sTitle = mcqs[a].title;
+
+      //creating arrays for each questions
+      let questions = mcqs[i].questions;
+      let formatted = [];
+      console.log(questions);
+      for (let b = 0; b < questions.length; b++){
+        //array for each options
+        let options = [];
+        //for each of the options option name and counter, push to options array
+        for(let c = 0; c < questions[b].options.length; c++){
+          options.push({
+            Option: questions[b].options[c].option,
+            Counter: questions[b].options[c].counter
+          })
+          
+        }
+        formatted.push({
+          Question: questions[b].question,
+          Options: options
+        })
+      }     
+    }
+    exportArray.push({
+        Title:sTitle,
+        Questions:formatted
+      })
+    // Creates and exports csv file
+    let csvfile = convert.json2csv(exportArray, (err, csv)=>{
+      res.setHeader('Content-disposition', 'attachment; filename=' + req.user.firstname + '_' + req.user.lastname + 'MC_Surveys.csv');
+      res.set('Content-Type', 'text/csv');
+      res.status(200).send(csv);
+    });
+  });
+
+});
 
 module.exports = router;
