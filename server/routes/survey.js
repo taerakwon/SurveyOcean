@@ -196,7 +196,7 @@ router.post('/mcsurvey/:id', (req,res,next) => {
   //create variable for local id
   let id = req.params.id;
   let numQuestions;
-  let numOptions;
+  let options;
   let surveyQuestions;
   let parsedJSON;
 
@@ -210,20 +210,25 @@ router.post('/mcsurvey/:id', (req,res,next) => {
       numQuestions = question.questions.length;
       //set each surveyQuestions as questions
       surveyQuestions = question.questions;
+      options = question.questions.options;
       parsedJSON = JSON.parse(JSON.stringify(req.body));
-      console.log(parsedJSON);
-            
+      console.log("req.body: %j",parsedJSON); //display the json obj for each question id, which mc choice has been selected
+       
       //for every mc questions in the survey (10)
       for (let i = 0; i < numQuestions; i++){
-        //
-        let questionid = surveyQuestions[i]._id;
-        let options = parsedJSON[]
-        let counter = question.questions[i].options.counter; // returns undefined?
-        
-        console.log(questionid);
-        console.log(options);
-        console.dir(options.option); // returns undefined ?
-        console.log(counter);   
+        let questionid = surveyQuestions[i]._id;        
+        console.log("ParsedJSON: %j",parsedJSON[questionid]);
+        console.log("options length: %j",question.questions[i].options.length);
+        for(let a = 0; a < question.questions[i].options.length; a++) {
+           let optionid = question.questions[i].options[a]._id;
+           let icounter = question.questions[i].options[a].counter;
+           console.log("counter: %j",icounter);
+           console.log("Options: %j",optionid);
+           if(parsedJSON[questionid] == optionid){
+             icounter = icounter+1;
+             question.questions[i].options[a].counter = icounter;
+           }
+        }  
       }
       question.save();
     }
