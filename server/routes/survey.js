@@ -326,7 +326,8 @@ router.post('/mcq', requireAuth,(req,res,next) => {
     title: sTitle,
     questions: aQuestions,
     surveyType:'mcq',
-    expireAt: new Date(Date.now() + duration*60*60*1000)
+    expireAt: new Date(Date.now() + duration*60*60*1000),
+    createdBy: req.user._id
   });
   //send data to mlab
   mcSurvey.save(mcSurvey,(err,mcqs) => {
