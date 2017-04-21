@@ -157,11 +157,19 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
       if (err) {
         return console.error(err);
       } else {
+        //empty array to store each of the question and options pulled from mongo
         let questions = [];
         for (let i = 0; i < question.questions.length; i++){
           // Stores mc questions into questions array
           questions.push(question.questions[i]);
+          let options = [];
           console.log("Questions: " + questions[i]);
+          for(let a = 0; a < questions[i].options.length; a++){
+            //stores each of the options into options array
+            options.push(questions[i].options[a]);
+            console.log("  ");
+            console.log("Option: " + questions[i].options[a]);  
+          }        
         }
         // If no error
         res.render('surveys/respond/mcsurvey', {
@@ -169,7 +177,8 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
           title: 'Survey - Survey Ocean',
           fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
           mcquestion: question,
-          mcquestions: questions
+          mcquestions: questions,
+          
         });
       }
     })
@@ -178,6 +187,9 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
     return console.error(err);
   }
 });
+
+/* Respond to MC Survey */
+
 
 /* Create new survey */
 router.get('/createNew', requireAuth, (req, res, next) =>{
