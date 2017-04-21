@@ -18,10 +18,12 @@
         <form class="form" method="post">
           <% for (let i = 0; i < mcquestions.length; i++) { %>
           <div class="jumbotron col-md-12" id="mcjumbotron">
-            <span class="col-md-9" id="questionTitle"><h3>Question: "<%= mcquestions[i].question %>"</h3></span>
-            <span class="col-md-3" id="mcchoice">
-            <h3>True <input type="radio" name="<%= mcquestions[i]._id %>" value="true" required> | False <input type="radio" name="<%= mcquestions[i]._id %>" value="false" required></h3>
-            </span>
+            <span class="col-md-12" id="questionTitle"><h3>Question: "<%= mcquestions[i].question %>"</h3></span>
+              <% for(a = 0; a < 4; a++) { %>
+                 <span class="col-md-3" id="mcchoice">
+                    <h3><%= mcquestions[i].options[a].option %><input type="radio" name="<%= mcquestions[i]._id %>" value="<%= mcquestions[i].options[a]._id %>"></h3>
+                </span>
+              <% } %>
           </div>
           <%}%>
           <button type="submit" class="btn btn-success"><i class="fa fa-check-square-o"></i> Submit</button>
