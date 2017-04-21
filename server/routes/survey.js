@@ -163,12 +163,12 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
           // Stores mc questions into questions array
           questions.push(question.questions[i]);
           let options = [];
-          console.log("Questions: " + questions[i]);
+          //console.log("Questions: " + questions[i]);
           for(let a = 0; a < questions[i].options.length; a++){
             //stores each of the options into options array
             options.push(questions[i].options[a]);
-            console.log("  ");
-            console.log("Option: " + questions[i].options[a]);  
+            //console.log("  ");
+            //console.log("Option: " + questions[i].options[a]);  
           }        
         }
         // If no error
@@ -189,6 +189,44 @@ router.get('/mcsurvey/:id', (req, res, next) =>{
 });
 
 /* Respond to MC Survey */
+router.post('/mcsurvey/:id', (req,res,next) => {
+  //create variable for local id
+  let id = req.params.id;
+  let numQuestions;
+  let numOptions;
+  let surveyQuestions;
+  let parsedJSON;
+
+  MCQSModel.findById(id, (err,question) => {
+    //error
+    if(err) {
+      console.error(err);
+      res.end(err);
+    } else {
+      //set numQuestions for length of survey
+      numQuestions = question.questions.length;
+      //set each surveyQuestions as questions
+      surveyQuestions = question.questions;
+      parsedJSON = JSON.parse(JSON.stringify(req.body));
+      console.log(parsedJSON);
+            
+      //for every mc questions in the survey (10)
+      for (let i = 0; i < numQuestions; i++){
+        //
+        let questionid = surveyQuestions[i]._id;
+        let options = parsedJSON[]
+        let counter = question.questions[i].options.counter; // returns undefined?
+        
+        console.log(questionid);
+        console.log(options);
+        console.dir(options.option); // returns undefined ?
+        console.log(counter);   
+      }
+      question.save();
+    }
+  });
+  res.redirect('/');
+});
 
 
 /* Create new survey */
