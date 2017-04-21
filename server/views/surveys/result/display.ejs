@@ -15,16 +15,22 @@
     </div>
     <div class="container">
       <div class="row">
-        <table id="displayTF">
-            <tr><td colspan="$">True and False Questions</td><tr>
-            <tr><th width="50px">Que #</th><th>Options</th><th>True</th><th>False</th></tr>
+        <table class="table table-striped table-hover table-responsive" id="displayTF">
+          <tbody>
+            <tr><td colspan="4">True and False Questions</td><tr>
+            <tr><th width="75px">Que #</th><th>Options</th><th>True</th><th>False</th></tr>
             <% for (let i = 0; i < tfquestions.length; i++){ %>
-            <tr><td><%=i+1%><td/><td>Title: <%=tfquestions[i].title%></td><tr>
+            <tr><td colspan="4">Question #:<%=i+1%> - "<%=tfquestions[i].title%>"</td><tr>
                 <% for (let j = 0; j < tfquestions[i].questions.length; j++) {%>
                     <tr><td><%=i+1%>.<%=j + 1%></td><td><%=tfquestions[i].questions[j].question%></td><td><%=tfquestions[i].questions[j].true%></td><td><%=tfquestions[i].questions[j].false%></td></tr>
                 <% } %>
             <% } %>
+          </tbody>
         </table>
+        <br>
+        <form>
+        <a href="/result/export" class="btn btn-default">Export</a>
+        </form>
       </div> <!-- body .container.row.col-msd-offset-3 col-md-6 -->
     </div> <!-- body .container -->
 <% include ../../partials/footer.ejs %>

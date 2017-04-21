@@ -137,14 +137,15 @@ div.team{
 #displayTF {
   color: black;
   background-color: white;
-  width: 60%;
+  width: 100%;
   text-align: center;
   margin: auto;
+  font-size: 12pt;
 }
 
 #displayTF th{
   border: 1px solid black;
-  font-size: 16px;
+  font-size: 14pt;
   text-align: center;
 }
 

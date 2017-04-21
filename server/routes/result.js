@@ -12,6 +12,8 @@ let mongoose = require('mongoose');
 let passport = require('passport');
 // Moments.js for time and date manipulation
 let moment = require('moment');
+// Use JSON2CSV (https://www.npmjs.com/package/json-2-csv)
+let convert = require('json-2-csv');
 
 // Async
 let async = require('async');
@@ -68,9 +70,56 @@ router.get('/', requireAuth, (req, res, next) =>{
         fullname: req.user ? req.user.firstname + ' ' + req.user.lastname : '',
         tfquestions: tfqs,
         mcquestions: mcqs,
-        user: req.user ? req.user._id : '' 
+        user: req.user ? req.user._id : ''
       });  
     }
  );  
 });
+
+
+/* EXPORT JSON TO CSV */
+let json2csvCallback = (err, csv) => {
+  if (err) throw err;
+  
+  console.log(csv);
+}
+
+router.get('/export', function(req, res){
+  let id = req.params.id;
+  let tfqs = [];
+  let exportArray = [];
+  TfQuestions.find({createdBy:req.user._id},(err, model)=>{
+    // Pushing t/f surveys into tfqs array
+    for (let i=0; i < model.length; i++){        
+      tfqs.push(model[i]);
+    }
+    // Loop to iterate through length of tfqs array (how many surveys are there)
+    for (let j=0; j < tfqs.length; j++){
+      let sTitle = tfqs[j].title;
+      // Array with questions
+      let questions = tfqs[j].questions;
+      let formated = [];
+      // To add formatted contents to formated array
+      for (let k = 0; k < questions.length; k++){
+        formated.push({
+          Question: questions[k].question,
+          True: questions[k].true,
+          False: questions[k].false
+        })
+      }
+      // put formatted question per t/f survey question into exportArray
+      exportArray.push({
+        Title: sTitle,
+        Questions: formated
+      })
+    }
+    // Creates and exports csv file
+    let csvfile = convert.json2csv(exportArray, (err, csv)=>{
+      res.setHeader('Content-disposition', 'attachment; filename=' + req.user.firstname + '_' + req.user.lastname + 'Surveys.csv');
+      res.set('Content-Type', 'text/csv');
+      res.status(200).send(csv);
+    });
+  });
+})
+
 module.exports = router;
