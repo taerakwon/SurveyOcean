@@ -106,6 +106,25 @@ img.steps {
   padding-right: 40px;
 }
 
+div.team{
+    width: 95%;
+    border-radius:15%;
+    overflow:hidden;
+}
+
+.teamMemberName h4{
+  text-align: center;
+}
+
+.teamMemberInfo p{
+  text-align: center;
+}
+
+.teamMemberInfo article{
+  text-align: center;
+}
+
+
 /* RESULT */
 #displayTF {
   color: black;
