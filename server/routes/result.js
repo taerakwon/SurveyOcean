@@ -127,41 +127,41 @@ router.get('/export', function(req, res){
 router.get('/exportMc', function(req,res){
   let id = req.params.id;
   let mcqs = [];
-  
   let exportArray = [];
   MCQSModel.find({createdBy:req.user._id}, (err,model) => {
+    //push mcq surveys into mcqs array
     for (let i=0; i < model.length; i++){
       mcqs.push(model[i]);
     }
     //finding each surveys in mcqs array
-    for (let a = 0; a < mcqs.length; a++) {
-      let sTitle = mcqs[a].title;
+    for (let j = 0; j < mcqs.length; j++) {
+      let sTitle = mcqs[j].title;
 
       //creating arrays for each questions
-      let questions = mcqs[i].questions;
+      let questions = mcqs[j].questions;
       let formatted = [];
-      console.log(questions);
-      for (let b = 0; b < questions.length; b++){
+      for (let k = 0; k < questions.length; k++){
+        let options = questions[k].options;
         //array for each options
-        let options = [];
+        let option = [];
         //for each of the options option name and counter, push to options array
-        for(let c = 0; c < questions[b].options.length; c++){
-          options.push({
-            Option: questions[b].options[c].option,
-            Counter: questions[b].options[c].counter
-          })
-          
+        for(let l = 0; l < options.length; l++){
+          option.push({
+            Option: questions[k].options[l].option,
+            Counter: questions[k].options[l].counter
+          })          
         }
         formatted.push({
-          Question: questions[b].question,
-          Options: options
+          Question: questions[k].question,
+          Options: option
         })
-      }     
-    }
-    exportArray.push({
+      }
+      exportArray.push({
         Title:sTitle,
         Questions:formatted
-      })
+      })     
+    }
+    
     // Creates and exports csv file
     let csvfile = convert.json2csv(exportArray, (err, csv)=>{
       res.setHeader('Content-disposition', 'attachment; filename=' + req.user.firstname + '_' + req.user.lastname + 'MC_Surveys.csv');
@@ -169,7 +169,6 @@ router.get('/exportMc', function(req,res){
       res.status(200).send(csv);
     });
   });
-
 });
 
 module.exports = router;
