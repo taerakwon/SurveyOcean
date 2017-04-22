@@ -28,9 +28,9 @@ let TfQuestions = SurveyModel.TFQS;
 let TfQuestion = SurveyModel.TFQ;
 
 //define model for MC questions
-let MCQSModel = require('../models/surveys').MCQS;
-let MCQModel = require('../models/surveys').MCQ;
-let MCModel = require('../models/surveys').MC;
+//let MCQSModel = require('../models/surveys').MCQS;
+//let MCQModel = require('../models/surveys').MCQ;
+//let MCModel = require('../models/surveys').MC;
 
 // create a function to check if the user is authenticated
 function requireAuth(req, res, next) {
@@ -125,10 +125,12 @@ router.get('/export', function(req, res){
 
 //Export MC Survey
 router.get('/exportMc', function(req,res){
+
   let id = req.params.id;
   let mcqs = [];
   let exportArray = [];
-  MCQSModel.find({createdBy:req.user._id}, (err,model) => {
+  McqsModel.find({createdBy:req.user._id}, (err,model) => {
+    console.log("MODEL:" + model);
     //push mcq surveys into mcqs array
     for (let i=0; i < model.length; i++){
       mcqs.push(model[i]);
@@ -149,18 +151,21 @@ router.get('/exportMc', function(req,res){
           option.push({
             Option: questions[k].options[l].option,
             Counter: questions[k].options[l].counter
-          })          
+          });          
         }
+
         formatted.push({
           Question: questions[k].question,
           Options: option
-        })
+        });
       }
+
       exportArray.push({
         Title:sTitle,
         Questions:formatted
       })     
     }
+
     
     // Creates and exports csv file
     let csvfile = convert.json2csv(exportArray, (err, csv)=>{
