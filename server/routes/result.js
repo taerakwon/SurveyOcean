@@ -55,7 +55,7 @@ router.get('/', requireAuth, (req, res, next) =>{
       });
     },
     two: function(callback){
-      McqsModel.find((err, mcqmodel) =>{
+      McqsModel.find({createdBy:req.user._id},(err, mcqmodel) =>{
         for (let i=0; i < mcqmodel.length; i++){
           mcqs.push(mcqmodel[i]);
         }
